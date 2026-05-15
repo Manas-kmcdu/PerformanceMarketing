@@ -1,289 +1,2247 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Welcome Letter Page</title>
-  <style>
-    * {
-      box-sizing: border-box;
-      font-family: 'Segoe UI', sans-serif;
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Performance Marketing Masterclass</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=JetBrains+Mono:wght@400;700&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a0f;
+    --surface: #111118;
+    --surface2: #1a1a24;
+    --surface3: #22222f;
+    --border: #2a2a3a;
+    --text: #e8e8f0;
+    --muted: #7070a0;
+    --accent: #ff6b35;
+    --accent2: #00d4aa;
+    --accent3: #7c6af7;
+    --accent4: #f7c948;
+    --accent5: #e84393;
+    --red: #ff4444;
+    --green: #00cc88;
+    --blue: #4488ff;
+    --serif: 'DM Serif Display', serif;
+    --sans: 'Instrument Sans', sans-serif;
+    --mono: 'JetBrains Mono', monospace;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    font-size: 15px;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* ─── NAV ─── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0;
+    z-index: 1000;
+    background: rgba(10,10,15,0.92);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 2rem;
+    display: flex; align-items: center; gap: 0;
+    height: 56px;
+    overflow-x: auto;
+  }
+  nav a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 0 1rem;
+    height: 56px;
+    display: flex; align-items: center;
+    border-bottom: 2px solid transparent;
+    white-space: nowrap;
+    transition: all 0.2s;
+  }
+  nav a:hover { color: var(--text); border-color: var(--accent); }
+  nav .nav-brand {
+    color: var(--accent);
+    font-family: var(--mono);
+    font-size: 12px;
+    font-weight: 700;
+    margin-right: 1rem;
+    border-right: 1px solid var(--border);
+    padding-right: 1.5rem;
+    white-space: nowrap;
+  }
+
+  /* ─── HERO ─── */
+  .hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 8rem 4rem 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; top: -50%; left: -20%; right: -20%; bottom: -50%;
+    background: 
+      radial-gradient(ellipse 60% 40% at 70% 30%, rgba(255,107,53,0.08) 0%, transparent 60%),
+      radial-gradient(ellipse 40% 60% at 20% 70%, rgba(0,212,170,0.06) 0%, transparent 60%),
+      radial-gradient(ellipse 80% 30% at 50% 90%, rgba(124,106,247,0.05) 0%, transparent 60%);
+    pointer-events: none;
+  }
+  .hero-eyebrow {
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    display: flex; align-items: center; gap: 0.75rem;
+  }
+  .hero-eyebrow::before { content: '01'; color: var(--muted); }
+  .hero h1 {
+    font-family: var(--serif);
+    font-size: clamp(3rem, 7vw, 7rem);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin-bottom: 2rem;
+    max-width: 900px;
+  }
+  .hero h1 em { color: var(--accent); font-style: italic; }
+  .hero-sub {
+    font-size: 1.1rem;
+    color: var(--muted);
+    max-width: 600px;
+    margin-bottom: 3rem;
+    line-height: 1.8;
+  }
+  .hero-stats {
+    display: flex; gap: 3rem; flex-wrap: wrap;
+  }
+  .hero-stat { display: flex; flex-direction: column; gap: 0.25rem; }
+  .hero-stat-num {
+    font-family: var(--mono);
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--accent2);
+  }
+  .hero-stat-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  /* ─── SECTIONS ─── */
+  section {
+    padding: 5rem 4rem;
+    border-top: 1px solid var(--border);
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+  .section-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 0.75rem;
+    display: flex; align-items: center; gap: 0.5rem;
+  }
+  .section-label span { color: var(--accent); }
+  h2.section-title {
+    font-family: var(--serif);
+    font-size: clamp(2rem, 4vw, 3.5rem);
+    line-height: 1.1;
+    margin-bottom: 1rem;
+    letter-spacing: -0.02em;
+  }
+  .section-intro {
+    color: var(--muted);
+    max-width: 700px;
+    margin-bottom: 3rem;
+    font-size: 1rem;
+    line-height: 1.8;
+  }
+
+  /* ─── CONCEPT CARDS ─── */
+  .concept-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    margin-bottom: 3rem;
+  }
+  .concept-card {
+    background: var(--surface);
+    padding: 2rem;
+    position: relative;
+    transition: background 0.2s;
+  }
+  .concept-card:hover { background: var(--surface2); }
+  .concept-card .cc-icon {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    display: block;
+  }
+  .concept-card h3 {
+    font-family: var(--serif);
+    font-size: 1.3rem;
+    margin-bottom: 0.5rem;
+  }
+  .concept-card p { color: var(--muted); font-size: 0.9rem; line-height: 1.7; }
+  .concept-card .cc-tag {
+    position: absolute; top: 1rem; right: 1rem;
+    font-family: var(--mono);
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    padding: 3px 8px;
+    border-radius: 3px;
+    text-transform: uppercase;
+  }
+
+  /* ─── FUNNEL VIZ ─── */
+  .funnel-wrap {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: start;
+  }
+  .funnel {
+    display: flex; flex-direction: column; gap: 4px;
+  }
+  .funnel-stage {
+    position: relative;
+    cursor: pointer;
+    transition: all 0.25s;
+  }
+  .funnel-bar {
+    height: 56px;
+    display: flex; align-items: center;
+    padding: 0 1.5rem;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    position: relative;
+    transition: all 0.25s;
+    clip-path: polygon(0 0, calc(100% - 1rem) 0, 100% 50%, calc(100% - 1rem) 100%, 0 100%, 1rem 50%);
+  }
+  .funnel-stage:first-child .funnel-bar { clip-path: polygon(0 0, calc(100% - 1rem) 0, 100% 50%, calc(100% - 1rem) 100%, 0 100%); }
+  .funnel-stage.active .funnel-bar { filter: brightness(1.3); transform: scaleX(1.01); }
+  .funnel-meta {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 0.4rem 0;
+  }
+  .funnel-label { font-size: 11px; color: var(--muted); font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; }
+  .funnel-num { font-family: var(--mono); font-size: 13px; color: var(--text); }
+  .funnel-drop { font-family: var(--mono); font-size: 11px; color: var(--red); }
+
+  .funnel-detail {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent);
+    padding: 2rem;
+    min-height: 400px;
+    position: sticky; top: 6rem;
+  }
+  .funnel-detail h3 { font-family: var(--serif); font-size: 1.5rem; margin-bottom: 0.5rem; }
+  .funnel-detail .fd-stage { font-family: var(--mono); font-size: 10px; color: var(--accent); letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 1rem; }
+  .fd-block { margin: 1.25rem 0; }
+  .fd-block-label { font-size: 10px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.5rem; }
+  .fd-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+  .fd-tag {
+    background: var(--surface3);
+    border: 1px solid var(--border);
+    padding: 3px 10px;
+    border-radius: 3px;
+    font-size: 12px;
+    font-family: var(--mono);
+    color: var(--text);
+  }
+  .fd-metric {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .fd-metric:last-child { border-bottom: none; }
+  .fd-metric-label { font-size: 12px; color: var(--muted); }
+  .fd-metric-val { font-family: var(--mono); font-size: 13px; font-weight: 700; }
+
+  /* ─── METRICS CALCULATOR ─── */
+  .calc-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+  }
+  .calc-panel {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 2rem;
+  }
+  .calc-panel h3 { font-family: var(--serif); font-size: 1.2rem; margin-bottom: 1.5rem; }
+  .calc-row {
+    display: flex; flex-direction: column; gap: 0.4rem;
+    margin-bottom: 1.25rem;
+  }
+  .calc-row label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    display: flex; justify-content: space-between;
+  }
+  .calc-row label span { color: var(--accent2); font-family: var(--mono); font-size: 12px; }
+  .calc-row input[type=range] {
+    -webkit-appearance: none; appearance: none;
+    width: 100%; height: 4px;
+    background: var(--border);
+    outline: none; border-radius: 2px;
+  }
+  .calc-row input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none; appearance: none;
+    width: 16px; height: 16px;
+    border-radius: 50%;
+    background: var(--accent);
+    cursor: pointer;
+  }
+  .calc-row input[type=number] {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    color: var(--text);
+    font-family: var(--mono);
+    font-size: 14px;
+    padding: 0.5rem 0.75rem;
+    width: 100%;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .calc-row input[type=number]:focus { border-color: var(--accent); }
+  .calc-results {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    padding: 2rem;
+  }
+  .calc-results h3 { font-family: var(--serif); font-size: 1.2rem; margin-bottom: 1.5rem; }
+  .result-item {
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--border);
+    display: flex; flex-direction: column; gap: 0.25rem;
+  }
+  .result-item:last-child { border-bottom: none; }
+  .result-label { font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+  .result-value { font-family: var(--mono); font-size: 1.6rem; font-weight: 700; color: var(--accent2); }
+  .result-note { font-size: 11px; color: var(--muted); }
+  .result-warn { color: var(--accent); }
+  .result-good { color: var(--green); }
+  .result-bad { color: var(--red); }
+
+  /* ─── CHANNEL COMPARISON ─── */
+  .channel-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+  }
+  .channel-table th {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    padding: 0.75rem 1rem;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+    background: var(--surface);
+  }
+  .channel-table td {
+    padding: 1rem;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+  }
+  .channel-table tr:hover td { background: var(--surface2); }
+  .ch-name { font-weight: 600; font-size: 14px; }
+  .ch-intent { display: inline-flex; gap: 2px; }
+  .ch-dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
+  .ch-dot.filled { background: var(--accent2); }
+  .ch-dot.empty { background: var(--border); }
+  .ch-badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 3px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+  .badge-high { background: rgba(0,204,136,0.15); color: var(--green); }
+  .badge-med { background: rgba(247,201,72,0.15); color: var(--accent4); }
+  .badge-low { background: rgba(255,68,68,0.15); color: var(--red); }
+  .badge-accent { background: rgba(255,107,53,0.15); color: var(--accent); }
+  .badge-blue { background: rgba(68,136,255,0.15); color: var(--blue); }
+
+  /* ─── ATTRIBUTION MODELS ─── */
+  .attrib-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+  }
+  .attrib-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 1.75rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+  .attrib-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0; height: 3px;
+    background: var(--accent3);
+    transform: scaleX(0); transform-origin: left;
+    transition: transform 0.3s;
+  }
+  .attrib-card:hover::before, .attrib-card.active::before { transform: scaleX(1); }
+  .attrib-card:hover, .attrib-card.active { background: var(--surface2); border-color: var(--accent3); }
+  .attrib-card h3 { font-family: var(--serif); font-size: 1.15rem; margin-bottom: 0.5rem; }
+  .attrib-card p { font-size: 12px; color: var(--muted); line-height: 1.7; margin-bottom: 1rem; }
+  .attrib-visual {
+    display: flex; gap: 4px; align-items: flex-end; height: 48px;
+    margin-top: 1rem;
+  }
+  .attrib-bar-wrap { display: flex; flex-direction: column; align-items: center; gap: 4px; flex: 1; }
+  .attrib-bar {
+    width: 100%; border-radius: 2px;
+    transition: height 0.4s cubic-bezier(0.34,1.56,0.64,1);
+  }
+  .attrib-bar-label { font-family: var(--mono); font-size: 9px; color: var(--muted); }
+  .attrib-pros-cons { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1rem; }
+  .pc-list { list-style: none; }
+  .pc-list li { font-size: 11px; color: var(--muted); padding: 2px 0; }
+  .pc-list.pros li::before { content: '+ '; color: var(--green); }
+  .pc-list.cons li::before { content: '− '; color: var(--red); }
+  .pc-title { font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.4rem; }
+  .pc-title.p { color: var(--green); }
+  .pc-title.c { color: var(--red); }
+
+  /* ─── FORMULA BOX ─── */
+  .formula-box {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--accent3);
+    padding: 1.5rem 2rem;
+    margin: 1.5rem 0;
+    font-family: var(--mono);
+  }
+  .formula-box .formula-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--accent3);
+    margin-bottom: 0.75rem;
+  }
+  .formula-box .formula-main {
+    font-size: 1.1rem;
+    color: var(--text);
+    margin-bottom: 0.5rem;
+  }
+  .formula-box .formula-sub {
+    font-size: 0.85rem;
+    color: var(--muted);
+  }
+
+  /* ─── BIDDING STRATEGIES ─── */
+  .bid-compare {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+  }
+  .bid-card {
+    background: var(--surface);
+    padding: 1.5rem;
+    transition: background 0.2s;
+  }
+  .bid-card:hover { background: var(--surface2); }
+  .bid-card h3 { font-family: var(--mono); font-size: 13px; font-weight: 700; color: var(--accent4); margin-bottom: 0.75rem; }
+  .bid-card p { font-size: 12px; color: var(--muted); line-height: 1.7; margin-bottom: 1rem; }
+  .bid-when { font-size: 11px; }
+  .bid-when strong { color: var(--accent2); display: block; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.3rem; }
+
+  /* ─── AUDIENCE BUILDER ─── */
+  .audience-wrap {
+    display: grid;
+    grid-template-columns: 1fr 300px;
+    gap: 2rem;
+    align-items: start;
+  }
+  .audience-layers { display: flex; flex-direction: column; gap: 1rem; }
+  .aud-layer {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 1.25rem 1.5rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex; align-items: center; gap: 1rem;
+  }
+  .aud-layer:hover { background: var(--surface2); }
+  .aud-layer.selected { border-color: var(--accent5); background: rgba(232,67,147,0.05); }
+  .aud-checkbox {
+    width: 20px; height: 20px; border-radius: 4px;
+    border: 2px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    transition: all 0.2s;
+    font-size: 12px;
+  }
+  .aud-layer.selected .aud-checkbox { border-color: var(--accent5); background: var(--accent5); }
+  .aud-info { flex: 1; }
+  .aud-info h4 { font-size: 14px; font-weight: 600; margin-bottom: 0.2rem; }
+  .aud-info p { font-size: 12px; color: var(--muted); }
+  .aud-size { font-family: var(--mono); font-size: 12px; color: var(--accent2); white-space: nowrap; }
+  .aud-preview {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 1.5rem;
+    position: sticky; top: 6rem;
+  }
+  .aud-preview h3 { font-family: var(--serif); font-size: 1.1rem; margin-bottom: 1.25rem; }
+  .aud-size-display {
+    text-align: center;
+    padding: 1.5rem;
+    background: var(--surface2);
+    margin-bottom: 1rem;
+  }
+  .aud-size-num { font-family: var(--mono); font-size: 2rem; font-weight: 700; color: var(--accent5); display: block; }
+  .aud-size-label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em; }
+  .aud-breakdown { display: flex; flex-direction: column; gap: 0.5rem; }
+  .aud-br-item { display: flex; justify-content: space-between; font-size: 12px; padding: 0.3rem 0; border-bottom: 1px solid var(--border); }
+  .aud-br-item:last-child { border-bottom: none; }
+  .aud-br-label { color: var(--muted); }
+  .aud-br-val { font-family: var(--mono); }
+
+  /* ─── AD COPY ANATOMY ─── */
+  .ad-anatomy {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: start;
+  }
+  .ad-mockup {
+    background: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    color: #000;
+  }
+  .ad-top {
+    padding: 12px 16px;
+    display: flex; align-items: center; gap: 8px;
+    border-bottom: 1px solid #eee;
+  }
+  .ad-avatar { width: 36px; height: 36px; border-radius: 50%; background: linear-gradient(135deg, #ff6b35, #f7c948); flex-shrink: 0; }
+  .ad-source { flex: 1; }
+  .ad-source-name { font-size: 13px; font-weight: 700; font-family: Arial; color: #000; }
+  .ad-source-tag { font-size: 11px; color: #65676b; font-family: Arial; }
+  .ad-body { padding: 12px 16px; font-family: Arial; }
+  .ad-headline { font-size: 18px; font-weight: 700; line-height: 1.2; color: #1c1e21; margin-bottom: 4px; }
+  .ad-desc { font-size: 14px; color: #65676b; line-height: 1.4; margin-bottom: 8px; }
+  .ad-url { font-size: 12px; color: #65676b; text-transform: uppercase; margin-bottom: 12px; }
+  .ad-image { background: linear-gradient(135deg, #1a1a24, #2a2a3a); height: 200px; display: flex; align-items: center; justify-content: center; }
+  .ad-image-text { color: var(--muted); font-family: var(--mono); font-size: 12px; }
+  .ad-cta { background: #e7f3ff; border-top: 1px solid #ddd; padding: 10px 16px; display: flex; justify-content: space-between; align-items: center; font-family: Arial; }
+  .ad-cta-domain { font-size: 12px; color: #65676b; }
+  .ad-cta-btn { background: #1877f2; color: #fff; border: none; padding: 6px 16px; border-radius: 6px; font-size: 14px; font-weight: 700; cursor: pointer; }
+
+  .ad-annotations { display: flex; flex-direction: column; gap: 1rem; }
+  .ad-note {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--accent4);
+    padding: 1rem 1.25rem;
+  }
+  .ad-note-part { font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent4); margin-bottom: 0.4rem; }
+  .ad-note p { font-size: 12px; color: var(--muted); line-height: 1.6; }
+  .ad-note .tip { font-size: 11px; color: var(--accent2); margin-top: 0.4rem; }
+  .ad-note .tip::before { content: '→ '; }
+
+  /* ─── A/B TEST SIMULATOR ─── */
+  .ab-wrap {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin-bottom: 2rem;
+  }
+  .ab-variant {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 1.5rem;
+  }
+  .ab-variant-head {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 1.25rem;
+  }
+  .ab-label { font-family: var(--mono); font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; }
+  .ab-a .ab-label { color: var(--blue); }
+  .ab-b .ab-label { color: var(--accent5); }
+  .ab-status { font-size: 11px; padding: 2px 8px; border-radius: 3px; }
+  .ab-controls { display: flex; flex-direction: column; gap: 0.75rem; }
+  .ab-ctrl-label { font-size: 11px; color: var(--muted); margin-bottom: 0.3rem; }
+  .ab-ctrl-input {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    color: var(--text);
+    font-family: var(--mono);
+    font-size: 14px;
+    padding: 0.5rem 0.75rem;
+    width: 100%;
+    outline: none;
+  }
+  .ab-ctrl-input:focus { border-color: var(--accent3); }
+  .ab-results-box {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    padding: 2rem;
+    margin-top: 0;
+  }
+  .ab-results-box h3 { font-family: var(--serif); font-size: 1.2rem; margin-bottom: 1.5rem; }
+  .ab-compare { display: grid; grid-template-columns: 1fr auto 1fr; gap: 1rem; align-items: center; margin-bottom: 1.5rem; }
+  .ab-side { text-align: center; }
+  .ab-side-num { font-family: var(--mono); font-size: 2rem; font-weight: 700; }
+  .ab-side-label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; }
+  .ab-vs { font-family: var(--mono); font-size: 1rem; color: var(--muted); }
+  .ab-significance { padding: 1rem; text-align: center; font-size: 14px; }
+  .sig-bar-wrap { height: 8px; background: var(--border); border-radius: 4px; margin: 1rem 0; overflow: hidden; }
+  .sig-bar { height: 100%; border-radius: 4px; transition: width 0.5s ease; }
+  .sig-label { font-size: 12px; color: var(--muted); text-align: center; }
+
+  /* ─── ROAS SIMULATOR ─── */
+  .roas-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+  }
+  .roas-scenario {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 1.75rem;
+  }
+  .roas-scenario h3 { font-family: var(--serif); font-size: 1.15rem; margin-bottom: 1.25rem; }
+  .roas-inp {
+    display: flex; flex-direction: column; gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+  .roas-field { display: flex; flex-direction: column; gap: 0.35rem; }
+  .roas-field label { font-size: 11px; color: var(--muted); font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; }
+  .roas-field input {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    color: var(--text);
+    font-family: var(--mono);
+    font-size: 14px;
+    padding: 0.5rem 0.75rem;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .roas-field input:focus { border-color: var(--accent4); }
+  .roas-output {
+    background: var(--surface2);
+    padding: 1.25rem;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem;
+  }
+  .ro-item { display: flex; flex-direction: column; gap: 0.2rem; }
+  .ro-label { font-size: 10px; color: var(--muted); font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; }
+  .ro-val { font-family: var(--mono); font-size: 1.2rem; font-weight: 700; }
+  .ro-val.good { color: var(--green); }
+  .ro-val.warn { color: var(--accent4); }
+  .ro-val.bad { color: var(--red); }
+
+  /* ─── LIFECYCLE TIMELINE ─── */
+  .timeline {
+    position: relative;
+    padding-left: 3rem;
+  }
+  .timeline::before {
+    content: '';
+    position: absolute; left: 8px; top: 0; bottom: 0;
+    width: 2px; background: var(--border);
+  }
+  .tl-item {
+    position: relative;
+    margin-bottom: 2rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .tl-item:last-child { border-bottom: none; margin-bottom: 0; }
+  .tl-dot {
+    position: absolute; left: -2.7rem; top: 0.25rem;
+    width: 20px; height: 20px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 10px; font-weight: 700;
+    border: 2px solid;
+  }
+  .tl-phase {
+    font-size: 10px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase;
+    margin-bottom: 0.4rem;
+  }
+  .tl-item h3 { font-family: var(--serif); font-size: 1.2rem; margin-bottom: 0.5rem; }
+  .tl-item p { font-size: 13px; color: var(--muted); line-height: 1.7; }
+  .tl-tactics { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.75rem; }
+  .tl-tactic {
+    font-size: 11px;
+    padding: 3px 10px;
+    border-radius: 3px;
+    font-family: var(--mono);
+  }
+
+  /* ─── GLOSSARY ─── */
+  .glossary-search {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    color: var(--text);
+    font-family: var(--sans);
+    font-size: 14px;
+    padding: 0.75rem 1rem;
+    width: 100%;
+    max-width: 500px;
+    outline: none;
+    margin-bottom: 2rem;
+    display: block;
+    transition: border-color 0.2s;
+  }
+  .glossary-search:focus { border-color: var(--accent2); }
+  .glossary-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+  }
+  .gloss-item {
+    background: var(--surface);
+    padding: 1.25rem 1.5rem;
+    transition: background 0.15s;
+  }
+  .gloss-item:hover { background: var(--surface2); }
+  .gloss-item dt {
+    font-family: var(--mono);
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--accent2);
+    letter-spacing: 0.05em;
+    margin-bottom: 0.4rem;
+  }
+  .gloss-item dd { font-size: 12px; color: var(--muted); line-height: 1.6; }
+  .gloss-item.hidden { display: none; }
+
+  /* ─── SCROLL ANIMATIONS ─── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* ─── CALLOUTS ─── */
+  .callout {
+    padding: 1.25rem 1.5rem;
+    border-left: 4px solid;
+    margin: 1.5rem 0;
+    font-size: 13px;
+    line-height: 1.7;
+  }
+  .callout.info { border-color: var(--blue); background: rgba(68,136,255,0.05); }
+  .callout.warn { border-color: var(--accent4); background: rgba(247,201,72,0.05); }
+  .callout.tip { border-color: var(--green); background: rgba(0,204,136,0.05); }
+  .callout.danger { border-color: var(--red); background: rgba(255,68,68,0.05); }
+  .callout strong { display: block; font-size: 10px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 0.5rem; }
+  .callout.info strong { color: var(--blue); }
+  .callout.warn strong { color: var(--accent4); }
+  .callout.tip strong { color: var(--green); }
+  .callout.danger strong { color: var(--red); }
+
+  /* ─── DIVIDERS ─── */
+  .section-divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 0;
+  }
+  .full-width { max-width: none; border-radius: 0; padding-left: 0; padding-right: 0; }
+  .fw-inner { max-width: 1400px; margin: 0 auto; padding: 0 4rem; }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 900px) {
+    section { padding: 3rem 1.5rem; }
+    .hero { padding: 7rem 1.5rem 3rem; }
+    .funnel-wrap, .calc-grid, .ad-anatomy, .ab-wrap, .roas-grid, .audience-wrap {
+      grid-template-columns: 1fr;
     }
+    .funnel-detail { position: static; }
+    .aud-preview { position: static; }
+  }
 
-    body {
-      margin: 0;
-      display: flex;
-      flex-direction: row;
-      min-height: 100vh;
-      background: #f0f8f5;
-    }
-
-    .left-section, .right-section {
-      flex: 1;
-      padding: 2rem;
-      overflow-y: auto;
-    }
-
-    .left-section {
-      background: #e2f0e8;
-      color: #083d2b;
-      position: relative;
-      display: flex;
-      justify-content: center;
-      align-items: flex-start;
-    }
-
-    .letter {
-      max-width: 600px;
-      background: #fffdf9;
-      padding: 1.5rem;
-      border-radius: 10px;
-      border: 1px solid #e0e0e0;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-      font-family: 'Georgia', serif;
-      font-size: 0.95rem;
-      line-height: 1.6;
-    }
-
-    .letter p {
-      margin-bottom: 1rem;
-    }
-
-    .mask {
-      position: absolute;
-      top: 170px;
-      left: 80px;
-      width: 70px;
-      height: 25px;
-      background: url('https://www.transparenttextures.com/patterns/cardboard.png');
-      background-size: cover;
-      z-index: 10;
-      cursor: pointer;
-    }
-
-    .mask.hidden {
-      display: none;
-    }
-
-    .right-section {
-      background: #ffffff;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: flex-start;
-    }
-
-    h3 {
-      margin-top: 0;
-      color: #083d2b;
-    }
-
-    #puzzle-container {
-      display: grid;
-      grid-template-columns: repeat(10, 30px);
-      gap: 4px;
-      margin: 1rem 0;
-    }
-
-    .cell {
-      width: 30px;
-      height: 30px;
-      background: #d0eee0;
-      border: 1px solid #ccc;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: bold;
-      cursor: pointer;
-    }
-
-    input[type="text"], button {
-      padding: 0.5rem;
-      margin: 0.25rem 0;
-      width: 200px;
-    }
-
-    #congrats, #countdown-container, #future-message {
-      margin-top: 1.5rem;
-      text-align: center;
-      color: #083d2b;
-    }
-
-    #future-message input {
-      width: 220px;
-    }
-
-    @media (max-width: 768px) {
-      body {
-        flex-direction: column;
-      }
-
-      .mask {
-        top: 250px;
-        left: 40px;
-      }
-
-      #puzzle-container {
-        grid-template-columns: repeat(10, 26px);
-        gap: 3px;
-      }
-
-      .cell {
-        width: 26px;
-        height: 26px;
-        font-size: 13px;
-      }
-
-      input[type="text"], button {
-        width: 100%;
-      }
-
-      #future-message input {
-        width: 100%;
-      }
-
-      .letter {
-        font-size: 0.9rem;
-      }
-    }
-  </style>
+  /* ─── UTILITY ─── */
+  .mt1 { margin-top: 0.5rem; }
+  .mt2 { margin-top: 1rem; }
+  .mt3 { margin-top: 2rem; }
+  .mb2 { margin-bottom: 1rem; }
+  .mb3 { margin-bottom: 2rem; }
+  .text-muted { color: var(--muted); }
+  .text-mono { font-family: var(--mono); }
+  .text-small { font-size: 12px; }
+  .inline-tag {
+    display: inline-block;
+    background: var(--surface3);
+    border: 1px solid var(--border);
+    padding: 1px 8px;
+    border-radius: 3px;
+    font-family: var(--mono);
+    font-size: 11px;
+    vertical-align: middle;
+  }
+  a.back-top {
+    position: fixed; bottom: 2rem; right: 2rem;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    color: var(--muted);
+    width: 44px; height: 44px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.2rem;
+    text-decoration: none;
+    transition: all 0.2s;
+    z-index: 100;
+  }
+  a.back-top:hover { color: var(--text); border-color: var(--accent); }
+</style>
 </head>
 <body>
-  <div class="left-section">
-    <div class="letter">
-      <p><strong>Dear Fresher,</strong></p>
-      <p>Welcome to <strong>Kirori Mal College</strong> — your new home for the next three years, and perhaps a piece of your heart for much longer.</p>
-      <p>Take a deep breath. <strong>You’ve made it.</strong></p>
-      <p>KMC isn’t just another college within Delhi University. It’s a place that will surprise you in the best ways. You’ll meet people who challenge your thinking, discover spaces you’ll claim as your own (maybe under the tree near the Arts block or over a cup of chai at Sudama), and slowly build your own rhythm here.</p>
-      <p>Ask questions. Join societies. Get lost in the North Campus lanes. Volunteer for something that scares you. Speak up, even when your voice shakes. You’ll thank yourself later.</p>
-      <p>And if you ever feel like you don’t belong — pause, breathe, and look around. So many of us started exactly like that… and found something beautiful along the way.</p>
-      <p>Here’s to friendships that begin in classrooms, stories that unfold in corridors, and a version of yourself you’re yet to meet.</p>
-      <p><strong>We’re so glad you’re here.</strong></p>
-      <p style="font-style: italic; color: #555;">With warmth,<br>A senior, a stranger — or someone who just remembers what it felt like to start this journey.</p>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-brand">PERF MKT</div>
+  <a href="#what">Foundations</a>
+  <a href="#funnel">Funnel</a>
+  <a href="#metrics">Metrics</a>
+  <a href="#channels">Channels</a>
+  <a href="#attribution">Attribution</a>
+  <a href="#bidding">Bidding</a>
+  <a href="#audience">Audience</a>
+  <a href="#creative">Creative</a>
+  <a href="#testing">A/B Testing</a>
+  <a href="#roas">ROAS Sim</a>
+  <a href="#lifecycle">Lifecycle</a>
+  <a href="#glossary">Glossary</a>
+</nav>
+
+<!-- HERO -->
+<div class="hero" id="top">
+  <div class="hero-eyebrow">Complete Masterclass</div>
+  <h1>Performance<br>Marketing,<br><em>Explained.</em></h1>
+  <p class="hero-sub">Every concept. Every metric. Every model. Built as a living reference — click, explore, and calculate your way to mastery.</p>
+  <div class="hero-stats">
+    <div class="hero-stat">
+      <span class="hero-stat-num">12</span>
+      <span class="hero-stat-label">Core Modules</span>
     </div>
-    <div class="mask" title="Click to peek"></div>
+    <div class="hero-stat">
+      <span class="hero-stat-num">50+</span>
+      <span class="hero-stat-label">Key Concepts</span>
+    </div>
+    <div class="hero-stat">
+      <span class="hero-stat-num">4</span>
+      <span class="hero-stat-label">Live Calculators</span>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════
+     01. WHAT IS PERFORMANCE MARKETING
+═══════════════════════════════════════════════════ -->
+<section id="what" class="reveal">
+  <div class="section-label"><span>01</span> Foundations</div>
+  <h2 class="section-title">What Is Performance Marketing?</h2>
+  <p class="section-intro">Unlike brand marketing where you pay for impressions and hope for the best, performance marketing is pay-for-results. Every rupee spent is tied to a measurable action — a click, a lead, a sale, a download.</p>
+
+  <div class="callout info">
+    <strong>Core Idea</strong>
+    Brand marketing builds the house. Performance marketing fills it with buyers. Both matter — but performance marketing gives you the scoreboard in real time.
   </div>
 
-  <div class="right-section">
-    <h3>Find the hidden words!</h3>
-    <div id="puzzle-container"></div>
-    <input type="text" id="word-input" placeholder="Enter word">
-    <button onclick="checkWord()">Submit</button>
-
-    <div id="congrats" style="display:none;">
-      🎉 Congratulations on finding all the words!<br>
-      See you on <strong>5th August</strong> in the Canteen Lawn.
+  <div class="concept-grid mb3">
+    <div class="concept-card">
+      <span class="cc-tag" style="background:rgba(0,212,170,0.12);color:var(--accent2)">PRINCIPLE</span>
+      <span class="cc-icon">🎯</span>
+      <h3>Measurability</h3>
+      <p>Every campaign has a defined KPI. If you can't measure it, it doesn't count. Clicks, conversions, revenue, ROAS — all tracked in real time.</p>
     </div>
-
-    <div id="countdown-container" style="display:none;">
-      ⏳ Countdown: <span id="countdown"></span>
+    <div class="concept-card">
+      <span class="cc-tag" style="background:rgba(255,107,53,0.12);color:var(--accent)">PRINCIPLE</span>
+      <span class="cc-icon">⚡</span>
+      <h3>Accountability</h3>
+      <p>Ad spend is directly linked to outcomes. You pay when someone clicks (CPC), converts (CPA), or watches (CPV). No vague "awareness."</p>
     </div>
-
-    <div id="future-message" style="display:none;">
-      <h4>📩 Message to Your Future Self:</h4>
-      <input type="text" id="future-input" placeholder="Write a message...">
-      <button onclick="saveMessage()">Save</button>
-      <p id="saved-msg" style="color: green;"></p>
+    <div class="concept-card">
+      <span class="cc-tag" style="background:rgba(124,106,247,0.12);color:var(--accent3)">PRINCIPLE</span>
+      <span class="cc-icon">🔄</span>
+      <h3>Optimisation Loop</h3>
+      <p>Launch → Measure → Learn → Adjust → Repeat. This continuous cycle is the engine. Good marketers run dozens of iterations per month.</p>
+    </div>
+    <div class="concept-card">
+      <span class="cc-tag" style="background:rgba(247,201,72,0.12);color:var(--accent4)">PRINCIPLE</span>
+      <span class="cc-icon">📈</span>
+      <h3>Scalability</h3>
+      <p>When a campaign is profitable (positive ROAS), you scale spend. When it bleeds, you kill it fast. Capital follows proven performance.</p>
     </div>
   </div>
 
-  <script>
-    const words = ["WELCOME", "KMC", "JOURNEY", "GROWTH", "FUN"];
-    let foundWords = new Set();
+  <h3 style="font-family:var(--serif);font-size:1.5rem;margin-bottom:1rem">Brand vs. Performance: The Key Differences</h3>
+  <table class="channel-table mb3">
+    <thead>
+      <tr>
+        <th>Dimension</th>
+        <th>Brand Marketing</th>
+        <th>Performance Marketing</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Goal</strong></td>
+        <td style="color:var(--muted)">Awareness, recall, affinity</td>
+        <td style="color:var(--accent2)">Clicks, leads, purchases, downloads</td>
+      </tr>
+      <tr>
+        <td><strong>Payment Model</strong></td>
+        <td style="color:var(--muted)">CPM (per thousand impressions)</td>
+        <td style="color:var(--accent2)">CPC, CPL, CPA, ROAS</td>
+      </tr>
+      <tr>
+        <td><strong>Feedback Speed</strong></td>
+        <td style="color:var(--muted)">Weeks to months</td>
+        <td style="color:var(--accent2)">Hours to days</td>
+      </tr>
+      <tr>
+        <td><strong>Risk</strong></td>
+        <td style="color:var(--muted)">High (hard to attribute)</td>
+        <td style="color:var(--accent2)">Lower (real-time kill switch)</td>
+      </tr>
+      <tr>
+        <td><strong>Channels</strong></td>
+        <td style="color:var(--muted)">TV, OOH, Print, Sponsorships</td>
+        <td style="color:var(--accent2)">Google, Meta, Programmatic, Email</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
 
-    const grid = [
-      ["G", "R", "O", "W", "T", "H", "P", "J", "O", "U"],
-      ["O", "U", "R", "N", "E", "Y", "Q", "V", "L", "E"],
-      ["M", "B", "F", "S", "D", "C", "K", "N", "C", "T"],
-      ["C", "L", "A", "H", "M", "I", "E", "W", "R", "Z"],
-      ["W", "E", "L", "C", "O", "M", "E", "U", "S", "N"],
-      ["H", "D", "Z", "L", "Q", "T", "Y", "N", "G", "B"],
-      ["K", "M", "C", "J", "V", "I", "R", "O", "U", "H"],
-      ["N", "T", "E", "A", "S", "L", "B", "I", "F", "D"],
-      ["F", "U", "N", "E", "P", "G", "H", "A", "K", "M"],
-      ["Y", "L", "P", "W", "E", "C", "R", "M", "T", "Q"]
-    ];
+<!-- ═══════════════════════════════════════════════════
+     02. THE CONVERSION FUNNEL
+═══════════════════════════════════════════════════ -->
+<section id="funnel" class="reveal">
+  <div class="section-label"><span>02</span> Conversion Funnel</div>
+  <h2 class="section-title">The Marketing Funnel</h2>
+  <p class="section-intro">Every customer travels through stages before buying. Your job: move them efficiently from Awareness to Advocacy. Click each stage to understand what it means and how to optimise it.</p>
 
-    const container = document.getElementById('puzzle-container');
+  <div class="funnel-wrap">
+    <div>
+      <div class="funnel" id="funnel-vis">
+        <!-- stages rendered by JS -->
+      </div>
+    </div>
+    <div class="funnel-detail" id="funnel-detail">
+      <div class="fd-stage">← Select a stage</div>
+      <h3>Click a stage to explore</h3>
+      <p class="text-muted text-small" style="margin-top:0.75rem">Each stage of the funnel has distinct goals, metrics, channels, and creative approaches. Performance marketers track drop-off between stages to find optimisation opportunities.</p>
+    </div>
+  </div>
+</section>
 
-    function drawGrid() {
-      container.innerHTML = '';
-      for (let i = 0; i < grid.length; i++) {
-        for (let j = 0; j < grid[i].length; j++) {
-          const cell = document.createElement('div');
-          cell.className = 'cell';
-          cell.textContent = grid[i][j];
-          container.appendChild(cell);
-        }
-      }
+<!-- ═══════════════════════════════════════════════════
+     03. KEY METRICS CALCULATOR
+═══════════════════════════════════════════════════ -->
+<section id="metrics" class="reveal">
+  <div class="section-label"><span>03</span> Metrics</div>
+  <h2 class="section-title">Performance Metrics Calculator</h2>
+  <p class="section-intro">Enter your campaign numbers. All metrics calculate live. Understanding what each number means — and what drives it — is the core skill of a performance marketer.</p>
+
+  <div class="formula-box">
+    <div class="formula-label">Core Metric Chain</div>
+    <div class="formula-main">Impressions → CTR → Clicks → CVR → Conversions → Revenue → ROAS</div>
+    <div class="formula-sub">Every metric below derives from this chain. You can improve performance by lifting any link.</div>
+  </div>
+
+  <div class="calc-grid mb3">
+    <div class="calc-panel">
+      <h3>Campaign Inputs</h3>
+
+      <div class="calc-row">
+        <label>Total Ad Spend (₹) <span id="spend-val">₹50,000</span></label>
+        <input type="range" id="spend" min="1000" max="500000" step="1000" value="50000" oninput="calcMetrics()">
+      </div>
+
+      <div class="calc-row">
+        <label>Impressions <span id="imp-val">1,00,000</span></label>
+        <input type="range" id="impressions" min="1000" max="5000000" step="1000" value="100000" oninput="calcMetrics()">
+      </div>
+
+      <div class="calc-row">
+        <label>Click-Through Rate % <span id="ctr-val">2.5%</span></label>
+        <input type="range" id="ctr" min="0.1" max="20" step="0.1" value="2.5" oninput="calcMetrics()">
+      </div>
+
+      <div class="calc-row">
+        <label>Conversion Rate % <span id="cvr-val">3%</span></label>
+        <input type="range" id="cvr" min="0.1" max="30" step="0.1" value="3" oninput="calcMetrics()">
+      </div>
+
+      <div class="calc-row">
+        <label>Average Order Value ₹ <span id="aov-val">₹1,200</span></label>
+        <input type="range" id="aov" min="100" max="50000" step="100" value="1200" oninput="calcMetrics()">
+      </div>
+
+      <div class="calc-row">
+        <label>Avg Customer Lifetime Value ₹ <span id="ltv-val">₹4,800</span></label>
+        <input type="range" id="ltv" min="100" max="200000" step="100" value="4800" oninput="calcMetrics()">
+      </div>
+    </div>
+
+    <div class="calc-results" id="calc-results">
+      <h3>Calculated Metrics</h3>
+      <div class="result-item">
+        <span class="result-label">CPM — Cost per 1000 Impressions</span>
+        <span class="result-value" id="r-cpm">—</span>
+        <span class="result-note">What you pay per 1000 eyeballs. Lower CPM = cheaper reach.</span>
+      </div>
+      <div class="result-item">
+        <span class="result-label">CPC — Cost per Click</span>
+        <span class="result-value" id="r-cpc">—</span>
+        <span class="result-note">Spend ÷ Clicks. Compare this to your CVR to judge quality.</span>
+      </div>
+      <div class="result-item">
+        <span class="result-label">CPL — Cost per Lead / Conversion</span>
+        <span class="result-value" id="r-cpl">—</span>
+        <span class="result-note">Spend ÷ Conversions. Must be below your AOV or LTV to be profitable.</span>
+      </div>
+      <div class="result-item">
+        <span class="result-label">Total Conversions</span>
+        <span class="result-value" id="r-conv">—</span>
+        <span class="result-note">Impressions × CTR × CVR. Your output volume.</span>
+      </div>
+      <div class="result-item">
+        <span class="result-label">Total Revenue</span>
+        <span class="result-value" id="r-rev">—</span>
+        <span class="result-note">Conversions × AOV. Topline return from this campaign.</span>
+      </div>
+      <div class="result-item">
+        <span class="result-label">ROAS — Return on Ad Spend</span>
+        <span class="result-value" id="r-roas">—</span>
+        <span class="result-note" id="r-roas-note">Revenue ÷ Spend. Industry minimum: 2x. Healthy: 4x+.</span>
+      </div>
+      <div class="result-item">
+        <span class="result-label">LTV:CPA Ratio</span>
+        <span class="result-value" id="r-ltv">—</span>
+        <span class="result-note" id="r-ltv-note">LTV ÷ CPL. If 3:1 or better, you're building a healthy business.</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="callout tip">
+    <strong>The Lever Game</strong>
+    Improving CTR by 0.5% or CVR by 1% often outperforms doubling your budget. Before scaling spend, exhaust creative and landing page optimisations first.
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════
+     04. CHANNELS
+═══════════════════════════════════════════════════ -->
+<section id="channels" class="reveal">
+  <div class="section-label"><span>04</span> Channels</div>
+  <h2 class="section-title">Performance Marketing Channels</h2>
+  <p class="section-intro">Each channel has a distinct audience, intent level, pricing model, and best use case. The art is picking the right mix for your objective and budget stage.</p>
+
+  <table class="channel-table mb3" id="channel-table">
+    <thead>
+      <tr>
+        <th>Channel</th>
+        <th>Buyer Intent</th>
+        <th>Pricing Model</th>
+        <th>Best For</th>
+        <th>Avg. CVR</th>
+        <th>Difficulty</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+          <div class="ch-name">Google Search (SEM)</div>
+          <div style="font-size:11px;color:var(--muted)">Ads on search results pages</div>
+        </td>
+        <td>
+          <div class="ch-intent"><span class="ch-dot filled"></span><span class="ch-dot filled"></span><span class="ch-dot filled"></span><span class="ch-dot filled"></span><span class="ch-dot filled"></span></div>
+          <div style="font-size:11px;color:var(--green)">Very High</div>
+        </td>
+        <td><span class="inline-tag">CPC</span></td>
+        <td>Bottom-funnel, transactional keywords, local</td>
+        <td style="font-family:var(--mono)">3–6%</td>
+        <td><span class="ch-badge badge-med">Medium</span></td>
+      </tr>
+      <tr>
+        <td>
+          <div class="ch-name">Meta Ads (FB + IG)</div>
+          <div style="font-size:11px;color:var(--muted)">Social feed, stories, reels</div>
+        </td>
+        <td>
+          <div class="ch-intent"><span class="ch-dot filled"></span><span class="ch-dot filled"></span><span class="ch-dot filled"></span><span class="ch-dot empty"></span><span class="ch-dot empty"></span></div>
+          <div style="font-size:11px;color:var(--accent4)">Medium</div>
+        </td>
+        <td><span class="inline-tag">CPM / CPC</span></td>
+        <td>Top/mid funnel, interest targeting, DTC brands</td>
+        <td style="font-family:var(--mono)">1–3%</td>
+        <td><span class="ch-badge badge-med">Medium</span></td>
+      </tr>
+      <tr>
+        <td>
+          <div class="ch-name">Google Display (GDN)</div>
+          <div style="font-size:11px;color:var(--muted)">Banner ads across websites</div>
+        </td>
+        <td>
+          <div class="ch-intent"><span class="ch-dot filled"></span><span class="ch-dot filled"></span><span class="ch-dot empty"></span><span class="ch-dot empty"></span><span class="ch-dot empty"></span></div>
+          <div style="font-size:11px;color:var(--red)">Low</div>
+        </td>
+        <td><span class="inline-tag">CPM / CPC</span></td>
+        <td>Retargeting, remarketing, brand awareness</td>
+        <td style="font-family:var(--mono)">0.5–1.5%</td>
+        <td><span class="ch-badge badge-low">Easy</span></td>
+      </tr>
+      <tr>
+        <td>
+          <div class="ch-name">YouTube Ads</div>
+          <div style="font-size:11px;color:var(--muted)">In-stream & discovery video ads</div>
+        </td>
+        <td>
+          <div class="ch-intent"><span class="ch-dot filled"></span><span class="ch-dot filled"></span><span class="ch-dot filled"></span><span class="ch-dot empty"></span><span class="ch-dot empty"></span></div>
+          <div style="font-size:11px;color:var(--accent4)">Medium</div>
+        </td>
+        <td><span class="inline-tag">CPV / CPM</span></td>
+        <td>Demo videos, education, mid-funnel nurture</td>
+        <td style="font-family:var(--mono)">0.5–2%</td>
+        <td><span class="ch-badge badge-med">Medium</span></td>
+      </tr>
+      <tr>
+        <td>
+          <div class="ch-name">Performance Max (PMax)</div>
+          <div style="font-size:11px;color:var(--muted)">AI-driven all-Google channels</div>
+        </td>
+        <td>
+          <div class="ch-intent"><span class="ch-dot filled"></span><span class="ch-dot filled"></span><span class="ch-dot filled"></span><span class="ch-dot filled"></span><span class="ch-dot empty"></span></div>
+          <div style="font-size:11px;color:var(--accent2)">High</div>
+        </td>
+        <td><span class="inline-tag">tCPA / tROAS</span></td>
+        <td>Scaling with ML; needs 50+ conversions/month first</td>
+        <td style="font-family:var(--mono)">2–5%</td>
+        <td><span class="ch-badge badge-high">Advanced</span></td>
+      </tr>
+      <tr>
+        <td>
+          <div class="ch-name">Email Marketing</div>
+          <div style="font-size:11px;color:var(--muted)">Owned list, automation flows</div>
+        </td>
+        <td>
+          <div class="ch-intent"><span class="ch-dot filled"></span><span class="ch-dot filled"></span><span class="ch-dot filled"></span><span class="ch-dot filled"></span><span class="ch-dot filled"></span></div>
+          <div style="font-size:11px;color:var(--green)">Very High</div>
+        </td>
+        <td><span class="inline-tag">Flat / CPS</span></td>
+        <td>Retention, winbacks, upsells, owned audience</td>
+        <td style="font-family:var(--mono)">2–5%</td>
+        <td><span class="ch-badge badge-low">Easy</span></td>
+      </tr>
+      <tr>
+        <td>
+          <div class="ch-name">Affiliate / Influencer</div>
+          <div style="font-size:11px;color:var(--muted)">Third-party publisher networks</div>
+        </td>
+        <td>
+          <div class="ch-intent"><span class="ch-dot filled"></span><span class="ch-dot filled"></span><span class="ch-dot filled"></span><span class="ch-dot empty"></span><span class="ch-dot empty"></span></div>
+          <div style="font-size:11px;color:var(--accent4)">Medium</div>
+        </td>
+        <td><span class="inline-tag">CPS / Rev-share</span></td>
+        <td>Top-funnel reach with performance accountability</td>
+        <td style="font-family:var(--mono)">1–4%</td>
+        <td><span class="ch-badge badge-med">Medium</span></td>
+      </tr>
+      <tr>
+        <td>
+          <div class="ch-name">Programmatic / DSP</div>
+          <div style="font-size:11px;color:var(--muted)">RTB via DV360, The Trade Desk</div>
+        </td>
+        <td>
+          <div class="ch-intent"><span class="ch-dot filled"></span><span class="ch-dot filled"></span><span class="ch-dot empty"></span><span class="ch-dot empty"></span><span class="ch-dot empty"></span></div>
+          <div style="font-size:11px;color:var(--red)">Low</div>
+        </td>
+        <td><span class="inline-tag">CPM</span></td>
+        <td>Scale, custom audiences, brand safety, retargeting</td>
+        <td style="font-family:var(--mono)">0.3–1%</td>
+        <td><span class="ch-badge badge-high">Advanced</span></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout warn">
+    <strong>Channel Mix Strategy</strong>
+    Don't start everywhere. New accounts: begin with Google Search (highest intent) + Meta retargeting (warm audience). Add channels only after you have proven unit economics. Spreading too thin wastes the learning phase.
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════
+     05. ATTRIBUTION MODELS
+═══════════════════════════════════════════════════ -->
+<section id="attribution" class="reveal">
+  <div class="section-label"><span>05</span> Attribution</div>
+  <h2 class="section-title">Attribution Models</h2>
+  <p class="section-intro">A customer rarely converts on the first touchpoint. They might see a YouTube ad, then a Meta post, then click a Google search ad, then convert from an email. <em>Which touchpoint gets credit?</em> That's attribution.</p>
+
+  <div class="callout info">
+    <strong>Why It Matters</strong>
+    Attribution determines which channels you fund and which you cut. Wrong model = wrong budget decisions. A brand running last-click attribution will systematically under-invest in top-funnel channels that do the heavy lifting.
+  </div>
+
+  <div class="attrib-grid" id="attrib-grid">
+    <!-- rendered by JS -->
+  </div>
+
+  <h3 style="font-family:var(--serif);font-size:1.4rem;margin-bottom:1rem">Multi-Touch Journey Example</h3>
+  <div style="background:var(--surface);border:1px solid var(--border);padding:2rem;overflow-x:auto;">
+    <div style="display:flex;align-items:center;gap:0;min-width:700px;">
+      <div style="flex:1;text-align:center;">
+        <div style="background:var(--surface2);border:1px solid var(--border);padding:0.75rem;font-size:12px;">
+          <div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:0.3rem">Day 1</div>
+          <div style="font-size:1.2rem;margin-bottom:0.3rem">📺</div>
+          <div style="font-weight:600;font-size:12px">YouTube Ad</div>
+          <div style="font-size:11px;color:var(--muted)">Awareness</div>
+        </div>
+      </div>
+      <div style="color:var(--border);font-size:1.5rem;padding:0 0.5rem">→</div>
+      <div style="flex:1;text-align:center;">
+        <div style="background:var(--surface2);border:1px solid var(--border);padding:0.75rem;font-size:12px;">
+          <div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:0.3rem">Day 3</div>
+          <div style="font-size:1.2rem;margin-bottom:0.3rem">📘</div>
+          <div style="font-weight:600;font-size:12px">Meta Feed Ad</div>
+          <div style="font-size:11px;color:var(--muted)">Interest</div>
+        </div>
+      </div>
+      <div style="color:var(--border);font-size:1.5rem;padding:0 0.5rem">→</div>
+      <div style="flex:1;text-align:center;">
+        <div style="background:var(--surface2);border:1px solid var(--border);padding:0.75rem;font-size:12px;">
+          <div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:0.3rem">Day 7</div>
+          <div style="font-size:1.2rem;margin-bottom:0.3rem">🔍</div>
+          <div style="font-weight:600;font-size:12px">Google Search</div>
+          <div style="font-size:11px;color:var(--muted)">Consideration</div>
+        </div>
+      </div>
+      <div style="color:var(--border);font-size:1.5rem;padding:0 0.5rem">→</div>
+      <div style="flex:1;text-align:center;">
+        <div style="background:var(--surface2);border:1px solid var(--border);padding:0.75rem;font-size:12px;">
+          <div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:0.3rem">Day 8</div>
+          <div style="font-size:1.2rem;margin-bottom:0.3rem">📧</div>
+          <div style="font-weight:600;font-size:12px">Email Offer</div>
+          <div style="font-size:11px;color:var(--muted)">Decision</div>
+        </div>
+      </div>
+      <div style="color:var(--border);font-size:1.5rem;padding:0 0.5rem">→</div>
+      <div style="flex:1;text-align:center;">
+        <div style="background:rgba(0,212,170,0.1);border:1px solid var(--accent2);padding:0.75rem;font-size:12px;">
+          <div style="font-size:10px;color:var(--accent2);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:0.3rem">Day 8</div>
+          <div style="font-size:1.2rem;margin-bottom:0.3rem">✅</div>
+          <div style="font-weight:600;font-size:12px;color:var(--accent2)">PURCHASE</div>
+          <div style="font-size:11px;color:var(--muted)">₹1,200</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════
+     06. BIDDING STRATEGIES
+═══════════════════════════════════════════════════ -->
+<section id="bidding" class="reveal">
+  <div class="section-label"><span>06</span> Bidding</div>
+  <h2 class="section-title">Bidding Strategies</h2>
+  <p class="section-intro">Bidding is how you compete in ad auctions. Choose wrong and you overpay for bad traffic or underdeliver on potential. Choose right and the algorithm works as your ally.</p>
+
+  <div class="formula-box">
+    <div class="formula-label">Google Ad Auction Formula</div>
+    <div class="formula-main">Ad Rank = Max Bid × Quality Score × Expected Impact of Ad Extensions</div>
+    <div class="formula-sub">Higher Quality Score = cheaper clicks at better positions. Improving QS cuts costs without raising bids.</div>
+  </div>
+
+  <div class="bid-compare mb3">
+    <div class="bid-card">
+      <h3>Manual CPC</h3>
+      <p>You set maximum bid per keyword/ad group. Full control, no automation. High skill ceiling.</p>
+      <div class="bid-when">
+        <strong>Use when</strong>
+        Low data volume (&lt;30 conversions/month), new campaigns, niche keywords. Build your baseline here.
+      </div>
+    </div>
+    <div class="bid-card">
+      <h3>Enhanced CPC</h3>
+      <p>Google adjusts your manual bid up/down in real time based on likelihood of conversion. Bridge between manual and smart.</p>
+      <div class="bid-when">
+        <strong>Use when</strong>
+        You have some conversion data but want to maintain bid visibility. Good transition strategy.
+      </div>
+    </div>
+    <div class="bid-card">
+      <h3>Target CPA</h3>
+      <p>Set a target cost-per-acquisition. Google's ML optimises bids to hit that CPA across all auctions.</p>
+      <div class="bid-when">
+        <strong>Use when</strong>
+        50+ conversions/month. You know your max acceptable CPA. Great for lead gen.
+      </div>
+    </div>
+    <div class="bid-card">
+      <h3>Target ROAS</h3>
+      <p>Set a revenue/spend ratio target. Algorithm maximises revenue while hitting that ratio.</p>
+      <div class="bid-when">
+        <strong>Use when</strong>
+        E-commerce with varied order values. Needs strong conversion tracking with value.
+      </div>
+    </div>
+    <div class="bid-card">
+      <h3>Maximize Conversions</h3>
+      <p>Spend entire budget to get maximum conversion volume, regardless of CPA. Aggressive.</p>
+      <div class="bid-when">
+        <strong>Use when</strong>
+        You have budget headroom and want to grow volume fast. Watch your CPA closely.
+      </div>
+    </div>
+    <div class="bid-card">
+      <h3>Maximize Conv. Value</h3>
+      <p>Maximises total conversion value (revenue), not volume. Prioritises higher-value orders.</p>
+      <div class="bid-when">
+        <strong>Use when</strong>
+        Different product categories have very different margins. Pair with product-level ROAS targets.
+      </div>
+    </div>
+  </div>
+
+  <div class="callout danger">
+    <strong>Common Mistake</strong>
+    Switching to smart bidding (tCPA / tROAS) too early, before 50+ monthly conversions. The algorithm needs data to learn. Early switching causes a "learning phase" of high CPAs that panics teams into cutting budgets prematurely — starving the algorithm further.
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════
+     07. AUDIENCE TARGETING BUILDER
+═══════════════════════════════════════════════════ -->
+<section id="audience" class="reveal">
+  <div class="section-label"><span>07</span> Audience Targeting</div>
+  <h2 class="section-title">Audience Layering Builder</h2>
+  <p class="section-intro">Performance marketing wins or dies on audience precision. Select targeting layers below to understand how they combine and what audience size you're working with.</p>
+
+  <div class="audience-wrap">
+    <div>
+      <div class="audience-layers" id="aud-layers">
+        <!-- rendered by JS -->
+      </div>
+    </div>
+    <div class="aud-preview">
+      <h3>Estimated Audience</h3>
+      <div class="aud-size-display">
+        <span class="aud-size-num" id="aud-num">Broad</span>
+        <span class="aud-size-label">Potential Reach</span>
+      </div>
+      <div class="aud-breakdown" id="aud-breakdown">
+        <div class="aud-br-item">
+          <span class="aud-br-label">Layers Active</span>
+          <span class="aud-br-val" id="aud-layers-count">0</span>
+        </div>
+        <div class="aud-br-item">
+          <span class="aud-br-label">Precision</span>
+          <span class="aud-br-val" id="aud-precision">Low</span>
+        </div>
+        <div class="aud-br-item">
+          <span class="aud-br-label">Expected CPM</span>
+          <span class="aud-br-val" id="aud-cpm">₹40–60</span>
+        </div>
+        <div class="aud-br-item">
+          <span class="aud-br-label">Expected CVR</span>
+          <span class="aud-br-val" id="aud-cvr">0.5–1%</span>
+        </div>
+      </div>
+      <div class="callout tip" style="margin-top:1rem;font-size:12px">
+        <strong>Rule of thumb</strong>
+        More layers = smaller audience + higher CPM + higher CVR. Balance precision against volume.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════
+     08. AD CREATIVE ANATOMY
+═══════════════════════════════════════════════════ -->
+<section id="creative" class="reveal">
+  <div class="section-label"><span>08</span> Creative Strategy</div>
+  <h2 class="section-title">Ad Creative Anatomy</h2>
+  <p class="section-intro">Great creative is the highest-leverage action in performance marketing. The algorithm can optimise bids and targeting, but it can't make a bad ad good. Here's what every component does.</p>
+
+  <div class="ad-anatomy mb3">
+    <div>
+      <div class="ad-mockup">
+        <div class="ad-top">
+          <div class="ad-avatar"></div>
+          <div class="ad-source">
+            <div class="ad-source-name">Occult Gurukul</div>
+            <div class="ad-source-tag">Sponsored · 🌐</div>
+          </div>
+        </div>
+        <div class="ad-body">
+          <div class="ad-headline" style="border-left:3px solid #f7c948;padding-left:8px;margin-bottom:8px">Learn Vedic Astrology from India's Top Masters</div>
+          <div class="ad-desc" style="border-left:3px solid #ff6b35;padding-left:8px;margin-bottom:8px">Join 50,000+ students mastering Jyotish, Numerology & Vastu. Live classes, mentorship, certification. First class FREE. ✨</div>
+          <div class="ad-url" style="border-left:3px solid #00d4aa;padding-left:8px">occultgurukul.com</div>
+        </div>
+        <div class="ad-image"><span class="ad-image-text">[ Hero Image / Video ]</span></div>
+        <div class="ad-cta">
+          <span class="ad-cta-domain">occultgurukul.com</span>
+          <button class="ad-cta-btn">Enroll Free →</button>
+        </div>
+      </div>
+      <div style="margin-top:1rem;font-size:11px;color:var(--muted);text-align:center">← Annotated ad mockup (Meta Feed format)</div>
+    </div>
+    <div class="ad-annotations">
+      <div class="ad-note">
+        <div class="ad-note-part">🟡 Headline — Primary Hook</div>
+        <p>Must stop the scroll in &lt;1 second. Use specificity (number, result, name), not vague claims. "India's Top Masters" adds authority. Headline = promise of value.</p>
+        <span class="tip">Test 3–5 headlines simultaneously. Winner often surprises you.</span>
+      </div>
+      <div class="ad-note">
+        <div class="ad-note-part">🟠 Body Copy — Proof + Urgency</div>
+        <p>Social proof (50,000+ students), benefit stack (Jyotish, Numerology, Vastu), risk reversal (First class FREE). Answers the unspoken question: "Why should I care?"</p>
+        <span class="tip">Lead with the outcome the user wants, not what you offer.</span>
+      </div>
+      <div class="ad-note">
+        <div class="ad-note-part">🟢 Display URL — Trust Signal</div>
+        <p>Users scan the URL to judge credibility. A clean, relevant domain (occultgurukul.com) builds trust. A tracking-heavy URL erodes it.</p>
+        <span class="tip">Customise the path: /astrology-courses not /campaign123</span>
+      </div>
+      <div class="ad-note">
+        <div class="ad-note-part">🖼️ Visual — Pattern Interrupt</div>
+        <p>The image/video is seen before the text. It must create curiosity or emotion that makes the user pause. Native-looking content outperforms polished banner ads in social feeds.</p>
+        <span class="tip">Test UGC-style vs designed creatives. UGC often wins on CTR.</span>
+      </div>
+      <div class="ad-note">
+        <div class="ad-note-part">🔵 CTA — Action Command</div>
+        <p>"Enroll Free →" is specific and low-friction. "Enroll Free" removes risk (free). The arrow signals progression. Generic CTAs like "Learn More" underperform action-specific CTAs.</p>
+        <span class="tip">Match CTA to funnel stage: Free Trial → Register → Buy Now</span>
+      </div>
+    </div>
+  </div>
+
+  <h3 style="font-family:var(--serif);font-size:1.4rem;margin-bottom:1rem">Creative Frameworks</h3>
+  <div class="concept-grid">
+    <div class="concept-card">
+      <span class="cc-icon">🔥</span>
+      <h3>PAS Framework</h3>
+      <p><strong style="color:var(--accent)">Problem</strong> → <strong style="color:var(--accent4)">Agitate</strong> → <strong style="color:var(--accent2)">Solution</strong>. Identify the pain, amplify it emotionally, then present your offer as the cure.</p>
+    </div>
+    <div class="concept-card">
+      <span class="cc-icon">🌟</span>
+      <h3>AIDA Framework</h3>
+      <p><strong style="color:var(--accent)">Attention</strong> → <strong style="color:var(--accent4)">Interest</strong> → <strong style="color:var(--accent3)">Desire</strong> → <strong style="color:var(--accent2)">Action</strong>. Classic copywriting model that mirrors the decision journey.</p>
+    </div>
+    <div class="concept-card">
+      <span class="cc-icon">🏆</span>
+      <h3>Social Proof First</h3>
+      <p>Lead with the result (testimonial, review count, case study), then explain the product. Trust is built before the pitch lands.</p>
+    </div>
+    <div class="concept-card">
+      <span class="cc-icon">🎁</span>
+      <h3>Free Offer / Lead Magnet</h3>
+      <p>Lower the barrier with a free resource (ebook, free class, trial). Captures the email for nurture. Works best for considered purchases.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════
+     09. A/B TESTING SIMULATOR
+═══════════════════════════════════════════════════ -->
+<section id="testing" class="reveal">
+  <div class="section-label"><span>09</span> Testing</div>
+  <h2 class="section-title">A/B Testing Simulator</h2>
+  <p class="section-intro">A/B testing is the scientific method applied to marketing. You change one variable, run both versions simultaneously, measure which wins with statistical confidence. Here's how to run one properly.</p>
+
+  <div class="callout warn">
+    <strong>The Golden Rule</strong>
+    Test ONE variable at a time. If you change the headline AND the image simultaneously, you can't know which change caused the result. This is the most common A/B testing mistake.
+  </div>
+
+  <div class="ab-wrap">
+    <div class="ab-variant ab-a">
+      <div class="ab-variant-head">
+        <span class="ab-label">Variant A — Control</span>
+        <span class="ab-status" style="background:rgba(68,136,255,0.1);color:var(--blue)">Original</span>
+      </div>
+      <div class="ab-controls">
+        <div>
+          <div class="ab-ctrl-label">Impressions served</div>
+          <input class="ab-ctrl-input" type="number" id="a-imp" value="10000" oninput="calcAB()">
+        </div>
+        <div>
+          <div class="ab-ctrl-label">Clicks (or conversions)</div>
+          <input class="ab-ctrl-input" type="number" id="a-clicks" value="250" oninput="calcAB()">
+        </div>
+      </div>
+    </div>
+    <div class="ab-variant ab-b">
+      <div class="ab-variant-head">
+        <span class="ab-label">Variant B — Challenger</span>
+        <span class="ab-status" style="background:rgba(232,67,147,0.1);color:var(--accent5)">New Creative</span>
+      </div>
+      <div class="ab-controls">
+        <div>
+          <div class="ab-ctrl-label">Impressions served</div>
+          <input class="ab-ctrl-input" type="number" id="b-imp" value="10000" oninput="calcAB()">
+        </div>
+        <div>
+          <div class="ab-ctrl-label">Clicks (or conversions)</div>
+          <input class="ab-ctrl-input" type="number" id="b-clicks" value="310" oninput="calcAB()">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ab-results-box">
+    <h3>Statistical Analysis</h3>
+    <div class="ab-compare">
+      <div class="ab-side">
+        <div class="ab-side-num" id="ab-a-rate" style="color:var(--blue)">2.5%</div>
+        <div class="ab-side-label">Variant A Rate</div>
+      </div>
+      <div class="ab-vs">vs</div>
+      <div class="ab-side">
+        <div class="ab-side-num" id="ab-b-rate" style="color:var(--accent5)">3.1%</div>
+        <div class="ab-side-label">Variant B Rate</div>
+      </div>
+    </div>
+    <div class="sig-bar-wrap">
+      <div class="sig-bar" id="sig-bar" style="width:72%;background:linear-gradient(90deg,var(--accent3),var(--accent2))"></div>
+    </div>
+    <div class="sig-label" id="sig-label">Statistical Confidence: 72% — Keep testing (need 95%+)</div>
+    <div class="ab-significance" id="ab-significance">
+      <span id="ab-result-text" style="color:var(--muted)">—</span>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:1rem;">
+      <div style="text-align:center;background:var(--surface);padding:1rem;">
+        <div style="font-family:var(--mono);font-size:1.4rem;font-weight:700" id="ab-uplift">+24%</div>
+        <div style="font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em">Relative Uplift</div>
+      </div>
+      <div style="text-align:center;background:var(--surface);padding:1rem;">
+        <div style="font-family:var(--mono);font-size:1.4rem;font-weight:700;color:var(--accent4)" id="ab-sample">10,000</div>
+        <div style="font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em">Min Sample Needed</div>
+      </div>
+      <div style="text-align:center;background:var(--surface);padding:1rem;">
+        <div style="font-family:var(--mono);font-size:1.4rem;font-weight:700;color:var(--accent5)" id="ab-verdict">⚠️ Wait</div>
+        <div style="font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:0.08em">Verdict</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════
+     10. ROAS & PROFITABILITY SIMULATOR
+═══════════════════════════════════════════════════ -->
+<section id="roas" class="reveal">
+  <div class="section-label"><span>10</span> Profitability</div>
+  <h2 class="section-title">ROAS & Profitability Simulator</h2>
+  <p class="section-intro">ROAS alone doesn't tell you if you're profitable. A 3x ROAS on a 40% margin product is very different from a 3x ROAS on a 15% margin product. Use this to find your breakeven and true profit.</p>
+
+  <div class="formula-box">
+    <div class="formula-label">Breakeven ROAS Formula</div>
+    <div class="formula-main">Breakeven ROAS = 1 ÷ Gross Margin %</div>
+    <div class="formula-sub">Example: 40% margin product → Breakeven ROAS = 1 ÷ 0.40 = 2.5x. Any ROAS below 2.5x loses money.</div>
+  </div>
+
+  <div class="roas-grid">
+    <div class="roas-scenario">
+      <h3>Campaign A — E-commerce</h3>
+      <div class="roas-inp">
+        <div class="roas-field"><label>Ad Spend (₹)</label><input type="number" id="ra-spend" value="50000" oninput="calcROAS('a')"></div>
+        <div class="roas-field"><label>Revenue Generated (₹)</label><input type="number" id="ra-rev" value="175000" oninput="calcROAS('a')"></div>
+        <div class="roas-field"><label>Gross Margin %</label><input type="number" id="ra-margin" value="40" oninput="calcROAS('a')"></div>
+        <div class="roas-field"><label>Fixed Overhead per Campaign (₹)</label><input type="number" id="ra-fixed" value="5000" oninput="calcROAS('a')"></div>
+      </div>
+      <div class="roas-output" id="roas-a-output">
+        <div class="ro-item"><span class="ro-label">ROAS</span><span class="ro-val" id="ra-roas">—</span></div>
+        <div class="ro-item"><span class="ro-label">Gross Profit</span><span class="ro-val" id="ra-gp">—</span></div>
+        <div class="ro-item"><span class="ro-label">Net Profit</span><span class="ro-val" id="ra-np">—</span></div>
+        <div class="ro-item"><span class="ro-label">Breakeven ROAS</span><span class="ro-val" id="ra-be">—</span></div>
+      </div>
+    </div>
+    <div class="roas-scenario">
+      <h3>Campaign B — Lead Gen / Service</h3>
+      <div class="roas-inp">
+        <div class="roas-field"><label>Ad Spend (₹)</label><input type="number" id="rb-spend" value="30000" oninput="calcROAS('b')"></div>
+        <div class="roas-field"><label>Leads Generated</label><input type="number" id="rb-leads" value="150" oninput="calcROAS('b')"></div>
+        <div class="roas-field"><label>Lead-to-Sale Close Rate %</label><input type="number" id="rb-close" value="15" oninput="calcROAS('b')"></div>
+        <div class="roas-field"><label>Average Sale Value (₹)</label><input type="number" id="rb-val" value="8000" oninput="calcROAS('b')"></div>
+      </div>
+      <div class="roas-output" id="roas-b-output">
+        <div class="ro-item"><span class="ro-label">CPL</span><span class="ro-val" id="rb-cpl">—</span></div>
+        <div class="ro-item"><span class="ro-label">Sales Closed</span><span class="ro-val" id="rb-sales">—</span></div>
+        <div class="ro-item"><span class="ro-label">Revenue</span><span class="ro-val" id="rb-rev">—</span></div>
+        <div class="ro-item"><span class="ro-label">CAC</span><span class="ro-val" id="rb-cac">—</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════
+     11. CUSTOMER LIFECYCLE MARKETING
+═══════════════════════════════════════════════════ -->
+<section id="lifecycle" class="reveal">
+  <div class="section-label"><span>11</span> Lifecycle</div>
+  <h2 class="section-title">Customer Lifecycle Marketing</h2>
+  <p class="section-intro">Acquisition is just the beginning. The real money is in retention. LTV:CAC is the health metric of your entire business. Each lifecycle stage demands a different message, channel, and goal.</p>
+
+  <div class="timeline">
+    <div class="tl-item">
+      <div class="tl-dot" style="background:rgba(255,107,53,0.15);border-color:var(--accent);color:var(--accent)">1</div>
+      <div class="tl-phase" style="color:var(--accent)">Stage 01 — Awareness</div>
+      <h3>Stranger → Prospect</h3>
+      <p>The customer doesn't know you exist. Goal is attention and recall. Metrics: CPM, Reach, Video View Rate, Brand Recall Lift. Investment here pays dividends in lower CPC later — branded searches are cheapest.</p>
+      <div class="tl-tactics">
+        <span class="tl-tactic" style="background:rgba(255,107,53,0.1);color:var(--accent)">YouTube TrueView</span>
+        <span class="tl-tactic" style="background:rgba(255,107,53,0.1);color:var(--accent)">Meta Reach Campaigns</span>
+        <span class="tl-tactic" style="background:rgba(255,107,53,0.1);color:var(--accent)">Influencer Seeding</span>
+        <span class="tl-tactic" style="background:rgba(255,107,53,0.1);color:var(--accent)">Programmatic Display</span>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot" style="background:rgba(247,201,72,0.15);border-color:var(--accent4);color:var(--accent4)">2</div>
+      <div class="tl-phase" style="color:var(--accent4)">Stage 02 — Consideration</div>
+      <h3>Prospect → Engaged Visitor</h3>
+      <p>They know you, now they're researching. Goal: drive intent signals (page visits, video watches, email sign-up). Metrics: CTR, Time on Site, Email Open Rate, Lead Quality Score.</p>
+      <div class="tl-tactics">
+        <span class="tl-tactic" style="background:rgba(247,201,72,0.1);color:var(--accent4)">Retargeting Ads</span>
+        <span class="tl-tactic" style="background:rgba(247,201,72,0.1);color:var(--accent4)">Lead Magnets</span>
+        <span class="tl-tactic" style="background:rgba(247,201,72,0.1);color:var(--accent4)">Comparison Content</span>
+        <span class="tl-tactic" style="background:rgba(247,201,72,0.1);color:var(--accent4)">Webinars / Free Demos</span>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot" style="background:rgba(0,212,170,0.15);border-color:var(--accent2);color:var(--accent2)">3</div>
+      <div class="tl-phase" style="color:var(--accent2)">Stage 03 — Conversion</div>
+      <h3>Prospect → Customer</h3>
+      <p>Decision moment. Remove friction, build confidence, create urgency. Metrics: CVR, Cart Abandonment Rate, CPA, Revenue per Visitor. Your landing page is as important as your ad here.</p>
+      <div class="tl-tactics">
+        <span class="tl-tactic" style="background:rgba(0,212,170,0.1);color:var(--accent2)">Google Search (Branded)</span>
+        <span class="tl-tactic" style="background:rgba(0,212,170,0.1);color:var(--accent2)">Abandon Cart Emails</span>
+        <span class="tl-tactic" style="background:rgba(0,212,170,0.1);color:var(--accent2)">Urgency Offers</span>
+        <span class="tl-tactic" style="background:rgba(0,212,170,0.1);color:var(--accent2)">Live Chat / Sales Call</span>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot" style="background:rgba(124,106,247,0.15);border-color:var(--accent3);color:var(--accent3)">4</div>
+      <div class="tl-phase" style="color:var(--accent3)">Stage 04 — Retention</div>
+      <h3>Customer → Repeat Buyer</h3>
+      <p>Retaining a customer costs 5–7x less than acquiring a new one. Every repeat purchase grows LTV and improves LTV:CAC. Metrics: Repeat Purchase Rate, Churn, Day-30 Retention, NPS.</p>
+      <div class="tl-tactics">
+        <span class="tl-tactic" style="background:rgba(124,106,247,0.1);color:var(--accent3)">Post-Purchase Emails</span>
+        <span class="tl-tactic" style="background:rgba(124,106,247,0.1);color:var(--accent3)">Loyalty Programs</span>
+        <span class="tl-tactic" style="background:rgba(124,106,247,0.1);color:var(--accent3)">Upsell / Cross-sell Ads</span>
+        <span class="tl-tactic" style="background:rgba(124,106,247,0.1);color:var(--accent3)">Win-back Campaigns</span>
+      </div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot" style="background:rgba(232,67,147,0.15);border-color:var(--accent5);color:var(--accent5)">5</div>
+      <div class="tl-phase" style="color:var(--accent5)">Stage 05 — Advocacy</div>
+      <h3>Customer → Brand Advocate</h3>
+      <p>The holy grail. Advocates refer others (free CAC) and create UGC (free creative). Metrics: NPS, Referral Rate, UGC Volume, Reviews Generated. This stage creates compound growth loops.</p>
+      <div class="tl-tactics">
+        <span class="tl-tactic" style="background:rgba(232,67,147,0.1);color:var(--accent5)">Referral Programs</span>
+        <span class="tl-tactic" style="background:rgba(232,67,147,0.1);color:var(--accent5)">Review Campaigns</span>
+        <span class="tl-tactic" style="background:rgba(232,67,147,0.1);color:var(--accent5)">Community Building</span>
+        <span class="tl-tactic" style="background:rgba(232,67,147,0.1);color:var(--accent5)">Partner / Affiliate Seeding</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════
+     12. GLOSSARY
+═══════════════════════════════════════════════════ -->
+<section id="glossary" class="reveal">
+  <div class="section-label"><span>12</span> Reference</div>
+  <h2 class="section-title">Glossary of Terms</h2>
+  <p class="section-intro">Every term a performance marketer uses daily — defined precisely.</p>
+
+  <input class="glossary-search" type="text" placeholder="Search terms… e.g. ROAS, CPM, Lookalike" id="gloss-search" oninput="filterGloss()">
+
+  <dl class="glossary-grid" id="glossary-grid">
+    <!-- rendered by JS -->
+  </dl>
+</section>
+
+<!-- BACK TO TOP -->
+<a href="#top" class="back-top">↑</a>
+
+<script>
+// ═══ DATA ═══════════════════════════════════════════
+
+const FUNNEL_STAGES = [
+  {
+    name: 'Awareness',
+    color: '#ff6b35',
+    width: '100%',
+    users: '1,000,000',
+    metric: 'Impressions',
+    drop: null,
+    details: {
+      title: 'Awareness Stage',
+      desc: 'The customer has never heard of you. Your job: appear where they are and create an impression strong enough to remember.',
+      channels: ['YouTube Ads','Meta Reach','Programmatic Display','Influencer','OOH + Digital'],
+      metrics: [
+        { label: 'Primary KPI', val: 'CPM / Reach' },
+        { label: 'Secondary KPI', val: 'Brand Recall Lift' },
+        { label: 'Avg. CPM', val: '₹30–₹80' },
+        { label: 'Typical ROAS', val: '0.5–1x (invest stage)' },
+      ],
+      tip: 'Brand investment here lowers your CPC at all lower funnel stages. Users who saw your brand search for it directly — branded search has 10x lower CPC.'
     }
-
-    function checkWord() {
-      const input = document.getElementById('word-input').value.trim().toUpperCase();
-      if (!input) return;
-
-      if (input === "180DC") {
-        document.getElementById('congrats').innerHTML = "💥 You found the easter egg!"; 
-        document.getElementById('congrats').style.display = 'block';
-        document.getElementById('countdown-container').style.display = 'none';
-        document.getElementById('future-message').style.display = 'none';
-        document.querySelector('.mask').classList.add('hidden');
-        return;
-      }
-
-      if (words.includes(input) && !foundWords.has(input)) {
-        foundWords.add(input);
-      }
-
-      if (foundWords.size === words.length) {
-        document.getElementById('congrats').style.display = 'block';
-        document.getElementById('countdown-container').style.display = 'block';
-        document.getElementById('future-message').style.display = 'block';
-        document.querySelector('.mask').classList.add('hidden');
-        startCountdown();
-      }
-
-      document.getElementById('word-input').value = '';
+  },
+  {
+    name: 'Interest',
+    color: '#f7c948',
+    width: '85%',
+    users: '850,000',
+    metric: 'Engaged Users',
+    drop: '−15%',
+    details: {
+      title: 'Interest Stage',
+      desc: 'They noticed you. Now they\'re curious. They clicked, watched, or engaged. Goal: give them a reason to lean in further.',
+      channels: ['Meta Traffic Ads','Google Display (Retargeting)','YouTube Mid-roll','Blog / SEO Content','Lead Magnet Landing Pages'],
+      metrics: [
+        { label: 'Primary KPI', val: 'CTR / Engagement Rate' },
+        { label: 'Secondary KPI', val: 'Email Sign-up Rate' },
+        { label: 'Avg. CTR (Display)', val: '0.1–0.5%' },
+        { label: 'Avg. CTR (Search)', val: '2–10%' },
+      ],
+      tip: 'Retargeting is most powerful here. Someone who visited your site but didn\'t convert is 10x more likely to convert than a cold audience.'
     }
-
-    function startCountdown() {
-      const eventDate = new Date("2025-08-05T10:00:00+05:30");
-      const countdownEl = document.getElementById('countdown');
-
-      const updateCountdown = () => {
-        const now = new Date();
-        const diff = eventDate - now;
-
-        if (diff <= 0) {
-          countdownEl.textContent = "🎉 It's today!";
-          clearInterval(interval);
-          return;
-        }
-
-        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-        const hrs = Math.floor((diff / (1000 * 60 * 60)) % 24);
-        const mins = Math.floor((diff / 1000 / 60) % 60);
-        const secs = Math.floor((diff / 1000) % 60);
-
-        countdownEl.textContent = `${days}d ${hrs}h ${mins}m ${secs}s`;
-      };
-
-      updateCountdown();
-      const interval = setInterval(updateCountdown, 1000);
+  },
+  {
+    name: 'Consideration',
+    color: '#00d4aa',
+    width: '65%',
+    users: '650,000',
+    metric: 'Active Evaluators',
+    drop: '−24%',
+    details: {
+      title: 'Consideration Stage',
+      desc: 'The prospect is actively comparing you vs. competitors. Reduce uncertainty. Build trust. Address objections proactively.',
+      channels: ['Google Search (non-brand)','Comparison Ad Copy','Testimonial Video Ads','Case Study Landing Pages','Email Nurture Sequence'],
+      metrics: [
+        { label: 'Primary KPI', val: 'Time on Site / Pages/Session' },
+        { label: 'Secondary KPI', val: 'Return Visit Rate' },
+        { label: 'Avg. Email Open Rate', val: '20–35%' },
+        { label: 'Lead Quality Score', val: 'Track per channel' },
+      ],
+      tip: 'Competitor keywords are high-intent gold. Bid on "[Competitor] alternative" and "[Competitor] vs [You]" — these users are actively in decision mode.'
     }
+  },
+  {
+    name: 'Conversion',
+    color: '#7c6af7',
+    width: '40%',
+    users: '400,000',
+    metric: 'Intent Signals',
+    drop: '−38%',
+    details: {
+      title: 'Conversion Stage',
+      desc: 'Decision moment. The prospect is ready but needs a final push. Friction kills conversions. Trust signals close them.',
+      channels: ['Google Search (Branded)','Dynamic Product Ads','Abandon Cart Email','SMS Reminders','FOMO / Urgency Overlays'],
+      metrics: [
+        { label: 'Primary KPI', val: 'Conversion Rate (CVR)' },
+        { label: 'Secondary KPI', val: 'CPA / CPL' },
+        { label: 'Industry Avg. CVR (ecom)', val: '1–3%' },
+        { label: 'Cart Abandon Rate', val: '70–80% (industry avg)' },
+      ],
+      tip: 'A/B test your landing page. Changing a headline or CTA can double conversion rate at zero extra media cost. The landing page is your highest-leverage optimisation.'
+    }
+  },
+  {
+    name: 'Purchase',
+    color: '#e84393',
+    width: '20%',
+    users: '20,000',
+    metric: 'Customers',
+    drop: '−95%',
+    details: {
+      title: 'Purchase Stage',
+      desc: 'Conversion happened. But the job isn\'t done. Confirmation emails, smooth post-purchase experience, and immediate upsell opportunities are critical here.',
+      channels: ['Order Confirmation Email','Upsell / OTO Pages','Post-Purchase Survey','First-Use Onboarding','Thank-You Page Ads'],
+      metrics: [
+        { label: 'Primary KPI', val: 'Revenue / ROAS' },
+        { label: 'Secondary KPI', val: 'AOV / Units per Order' },
+        { label: 'Overall Funnel CVR', val: '2% (20k/1M)' },
+        { label: 'Immediate Upsell Rate', val: 'Target 15–25%' },
+      ],
+      tip: 'The 60 seconds after a purchase is your highest-intent moment for upselling. An order bump or OTO (one-time offer) at checkout can lift AOV by 20–40% with zero extra media spend.'
+    }
+  },
+  {
+    name: 'Retention',
+    color: '#4488ff',
+    width: '12%',
+    users: '12,000',
+    metric: 'Repeat Buyers',
+    drop: '−40%',
+    details: {
+      title: 'Retention Stage',
+      desc: 'Turning one-time buyers into loyalists. Every repeat purchase decreases your effective CAC and increases LTV. This stage directly determines if your business is sustainable.',
+      channels: ['Post-Purchase Email Flows','Loyalty Program','Win-back Campaigns','Customer-Exclusive Offers','Community (WhatsApp / Telegram)'],
+      metrics: [
+        { label: 'Primary KPI', val: 'Repeat Purchase Rate' },
+        { label: 'Secondary KPI', val: 'Churn Rate / NPS' },
+        { label: 'Target Repeat Rate', val: '25–40% (12 months)' },
+        { label: 'LTV Multiplier', val: '3–5x AOV if retained' },
+      ],
+      tip: 'Segment your customers by purchase count. First-time buyers need different messaging than 3rd+ time buyers. Automation can handle this at scale with almost no marginal cost.'
+    }
+  }
+];
 
-    function saveMessage() {
-      const msg = document.getElementById('future-input').value;
-      if (msg) {
-        document.getElementById('saved-msg').textContent = "✅ Message saved!";
-        console.log("Saved message:", msg);
+const ATTRIB_MODELS = [
+  {
+    name: 'Last Click',
+    desc: '100% credit to the last touchpoint before conversion. Simple and widely used, but blinds you to what drives awareness.',
+    bars: [0, 0, 0, 0, 100],
+    pros: ['Simple to implement','Easy to explain to stakeholders','Clean data'],
+    cons: ['Ignores all upper-funnel','Undervalues awareness','Over-credits search/email']
+  },
+  {
+    name: 'First Click',
+    desc: '100% credit to the first touchpoint. Good for understanding what drives initial awareness, but misses the closer.',
+    bars: [100, 0, 0, 0, 0],
+    pros: ['Values awareness channels','Shows top-funnel impact','Simple'],
+    cons: ['Ignores conversion drivers','Over-credits display/social','No nuance']
+  },
+  {
+    name: 'Linear',
+    desc: 'Equal credit (20%) to all 5 touchpoints. Balanced but may over-credit irrelevant touchpoints in long journeys.',
+    bars: [20, 20, 20, 20, 20],
+    pros: ['Values all channels equally','No channel left behind','Good for long sales cycles'],
+    cons: ['Every touch equally weighted','May fund low-value channels','Averages out signal']
+  },
+  {
+    name: 'Time Decay',
+    desc: 'More credit to touchpoints closer to conversion. Logical — recency signals purchase intent. Good for short sales cycles.',
+    bars: [5, 10, 15, 25, 45],
+    pros: ['Recency-weighted','Aligns with buyer decision timing','Practical for most businesses'],
+    cons: ['Undervalues awareness','Bias toward paid search','Less useful for long B2B cycles']
+  },
+  {
+    name: 'Position Based (U-shape)',
+    desc: '40% to first, 40% to last, 20% split across middle. Rewards the "introducer" and "closer" most — pragmatic and popular.',
+    bars: [40, 7, 7, 7, 40],
+    pros: ['Values both ends of funnel','Practical for most businesses','Widely understood'],
+    cons: ['Middle touchpoints undervalued','Still semi-arbitrary weighting','Needs clean UTM data']
+  },
+  {
+    name: 'Data-Driven (ML)',
+    desc: 'Algorithmic attribution using your actual conversion data. Google and Meta\'s recommended model for large-volume accounts.',
+    bars: [18, 22, 19, 16, 25],
+    pros: ['Most accurate (with enough data)','Adapts to your funnel','No arbitrary rules'],
+    cons: ['Needs 600+ conversions/month','Black-box (hard to explain)','Different platforms disagree']
+  }
+];
+
+const AUDIENCE_LAYERS = [
+  { name: 'Location Targeting', desc: 'Target by city, state, radius, or pin code', size: 500000000, cpmMod: 0, cvrMod: 0.1 },
+  { name: 'Age & Gender', desc: '18–45 adults, specific gender(s)', size: 180000000, cpmMod: 10, cvrMod: 0.3 },
+  { name: 'Interest Targeting', desc: 'Astrology, spirituality, wellness, personal development', size: 45000000, cpmMod: 15, cvrMod: 0.8 },
+  { name: 'Behaviour Targeting', desc: 'Online shoppers, frequent travellers, high-spend segments', size: 20000000, cpmMod: 20, cvrMod: 1.2 },
+  { name: 'Custom Audience (Website Visitors)', desc: 'People who visited your site in the last 30 days', size: 50000, cpmMod: 40, cvrMod: 4.5 },
+  { name: 'Custom Audience (Email List)', desc: 'Upload your existing customer/lead list', size: 25000, cpmMod: 35, cvrMod: 6.0 },
+  { name: 'Lookalike Audience (1%)', desc: 'People statistically similar to your best customers', size: 3000000, cpmMod: 25, cvrMod: 2.5 },
+  { name: 'Retargeting (Add-to-Cart)', desc: 'People who added to cart but didn\'t purchase', size: 8000, cpmMod: 50, cvrMod: 8.0 },
+];
+
+const GLOSSARY_TERMS = [
+  { term: 'ROAS', def: 'Return on Ad Spend. Revenue ÷ Ad Spend. A 4x ROAS means every ₹1 spent generates ₹4 in revenue. Healthy benchmark depends on margin.' },
+  { term: 'CPC', def: 'Cost Per Click. Total Spend ÷ Total Clicks. How much you pay each time someone clicks your ad.' },
+  { term: 'CPM', def: 'Cost Per Mille (thousand impressions). Spend ÷ (Impressions ÷ 1000). The price of 1,000 eyeballs on your ad.' },
+  { term: 'CPA', def: 'Cost Per Acquisition. Total Spend ÷ Total Conversions. Must be below your AOV or LTV to be sustainable.' },
+  { term: 'CPL', def: 'Cost Per Lead. Spend ÷ Leads. Specific to lead-gen campaigns. Must factor in close rate to determine real CAC.' },
+  { term: 'CTR', def: 'Click-Through Rate. Clicks ÷ Impressions × 100. Measures ad relevance and creative effectiveness.' },
+  { term: 'CVR', def: 'Conversion Rate. Conversions ÷ Clicks × 100. Measures landing page + offer effectiveness. Most improvable metric.' },
+  { term: 'LTV', def: 'Lifetime Value (CLV). Total revenue a customer generates over their relationship with your brand. Must be ≥3x CAC for health.' },
+  { term: 'CAC', def: 'Customer Acquisition Cost. Total spend ÷ New customers. The true cost of getting one customer. Vs. LTV = health ratio.' },
+  { term: 'AOV', def: 'Average Order Value. Revenue ÷ Orders. Key lever for improving ROAS without increasing traffic or CVR.' },
+  { term: 'ACOS', def: 'Advertising Cost of Sale. Spend ÷ Revenue. Used on Amazon/marketplaces. Inverse of ROAS (10% ACOS = 10x ROAS).' },
+  { term: 'Quality Score', def: 'Google\'s 1–10 rating of keyword relevance to your ad and landing page. Higher QS = lower CPC and better ad rank.' },
+  { term: 'Ad Rank', def: 'Your position in the ad auction. = Max Bid × Quality Score × Extension Impact. Not just the highest bidder wins.' },
+  { term: 'Impression Share', def: 'How often your ads showed vs. how often they were eligible to show. Low IS = budget or bid constraints.' },
+  { term: 'Frequency', def: 'Average times the same user saw your ad. 1–3 is warming, 4–7 is considered, 8+ risks ad fatigue and CPM increases.' },
+  { term: 'Lookalike Audience', def: 'Audience the platform builds by finding users statistically similar to your seed audience (customers, visitors). 1% = tightest match.' },
+  { term: 'Retargeting', def: 'Showing ads to people who have previously interacted with your brand (site visitors, video watchers, email openers).' },
+  { term: 'UTM Parameters', def: 'Tracking codes appended to URLs (utm_source, utm_medium, utm_campaign) to identify traffic sources in analytics.' },
+  { term: 'Attribution Window', def: 'The time period after an ad interaction in which a conversion is credited to that ad. Typically 7-day click, 1-day view.' },
+  { term: 'A/B Test', def: 'Randomised controlled experiment comparing two variants of an ad, landing page, or email. Requires statistical significance (≥95%) before declaring a winner.' },
+  { term: 'Statistical Significance', def: 'Confidence level that your test result isn\'t random chance. Industry standard: 95%. Below this, don\'t act on results.' },
+  { term: 'Learning Phase', def: 'Period after a campaign change when Google/Meta\'s algorithm recalibrates. Performance can be unstable. Avoid changes during this.' },
+  { term: 'tCPA', def: 'Target CPA. Smart bidding strategy telling Google your desired cost per acquisition. Needs 50+ conversions/month to function well.' },
+  { term: 'tROAS', def: 'Target ROAS. Smart bidding strategy setting a desired return on ad spend ratio. Needs 30+ conversions with value tracking.' },
+  { term: 'Broad Match', def: 'Google keyword match type that shows ads for related searches, synonyms, and variations. Highest reach, lowest precision.' },
+  { term: 'Exact Match', def: 'Google keyword match type that shows ads only for that exact keyword or close variants. Highest precision, lowest reach.' },
+  { term: 'Negative Keywords', def: 'Search terms for which you explicitly block your ads from showing. Critical for preventing irrelevant clicks and wasted spend.' },
+  { term: 'Creative Fatigue', def: 'Drop in performance as the same audience sees your ad too many times. Signals: rising CPM + falling CTR. Fix: refresh creatives.' },
+  { term: 'Funnel TOFU/MOFU/BOFU', def: 'Top/Middle/Bottom of funnel. Different audience temperatures requiring different messages, channels, and CTAs.' },
+  { term: 'First-Party Data', def: 'Data you own: email lists, CRM, website events, purchase history. Most valuable in a cookieless future. Build aggressively.' },
+  { term: 'PMAX', def: 'Performance Max. Google\'s AI-driven campaign type running across all inventory (Search, Display, YouTube, Gmail, Maps). Needs conversion data.' },
+  { term: 'DPA / DSA', def: 'Dynamic Product Ads / Dynamic Search Ads. Auto-generated ads from your product catalogue. Critical for large e-commerce catalogues.' },
+];
+
+// ═══ RENDER FUNNEL ═══════════════════════════════════
+
+function renderFunnel() {
+  const container = document.getElementById('funnel-vis');
+  container.innerHTML = FUNNEL_STAGES.map((s, i) => `
+    <div class="funnel-stage" onclick="showFunnelDetail(${i})">
+      <div class="funnel-bar" style="width:${s.width};background:${s.color}22;border-left:4px solid ${s.color}">
+        <span style="color:${s.color};font-weight:700">${s.name}</span>
+      </div>
+      <div class="funnel-meta">
+        <span class="funnel-label">${s.metric}</span>
+        <span class="funnel-num">${s.users}</span>
+        ${s.drop ? `<span class="funnel-drop">${s.drop}</span>` : '<span style="font-size:11px;color:var(--muted)">TOP</span>'}
+      </div>
+    </div>
+  `).join('');
+}
+
+function showFunnelDetail(idx) {
+  const s = FUNNEL_STAGES[idx];
+  const d = s.details;
+  document.querySelectorAll('.funnel-stage').forEach((el,i) => {
+    el.style.opacity = i === idx ? '1' : '0.6';
+  });
+  document.getElementById('funnel-detail').innerHTML = `
+    <div class="fd-stage">${s.name.toUpperCase()} STAGE</div>
+    <h3>${d.title}</h3>
+    <p style="font-size:13px;color:var(--muted);margin:0.75rem 0;line-height:1.7">${d.desc}</p>
+    <div class="fd-block">
+      <div class="fd-block-label">Key Channels</div>
+      <div class="fd-tags">${d.channels.map(c => `<span class="fd-tag">${c}</span>`).join('')}</div>
+    </div>
+    <div class="fd-block">
+      <div class="fd-block-label">Metrics</div>
+      ${d.metrics.map(m => `<div class="fd-metric"><span class="fd-metric-label">${m.label}</span><span class="fd-metric-val" style="color:${s.color}">${m.val}</span></div>`).join('')}
+    </div>
+    <div class="callout tip" style="margin-top:1rem;font-size:12px"><strong>Optimisation Tip</strong>${d.tip}</div>
+  `;
+}
+
+// ═══ RENDER ATTRIBUTION ══════════════════════════════
+
+function renderAttrib() {
+  const colors = ['#ff6b35','#f7c948','#00d4aa','#7c6af7','#e84393'];
+  const touchLabels = ['YT','Meta','Blog','Search','Email'];
+  document.getElementById('attrib-grid').innerHTML = ATTRIB_MODELS.map((m, idx) => `
+    <div class="attrib-card" onclick="this.classList.toggle('active')">
+      <h3>${m.name}</h3>
+      <p>${m.desc}</p>
+      <div class="attrib-visual">
+        ${m.bars.map((b,i) => `
+          <div class="attrib-bar-wrap">
+            <div class="attrib-bar" style="height:${Math.max(4,b*0.44)}px;background:${colors[i]};opacity:${b>0?1:0.2}"></div>
+            <span class="attrib-bar-label" style="color:${colors[i]}">${b}%</span>
+            <span class="attrib-bar-label">${touchLabels[i]}</span>
+          </div>
+        `).join('')}
+      </div>
+      <div class="attrib-pros-cons">
+        <div>
+          <div class="pc-title p">Pros</div>
+          <ul class="pc-list pros">${m.pros.map(p=>`<li>${p}</li>`).join('')}</ul>
+        </div>
+        <div>
+          <div class="pc-title c">Cons</div>
+          <ul class="pc-list cons">${m.cons.map(c=>`<li>${c}</li>`).join('')}</ul>
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+// ═══ RENDER AUDIENCE LAYERS ══════════════════════════
+
+function renderAudLayers() {
+  document.getElementById('aud-layers').innerHTML = AUDIENCE_LAYERS.map((a, i) => `
+    <div class="aud-layer" onclick="toggleAud(${i})" id="aud-${i}">
+      <div class="aud-checkbox" id="aud-chk-${i}"></div>
+      <div class="aud-info">
+        <h4>${a.name}</h4>
+        <p>${a.desc}</p>
+      </div>
+      <span class="aud-size">${formatNum(a.size)}</span>
+    </div>
+  `).join('');
+}
+
+let selectedAud = new Set();
+
+function toggleAud(i) {
+  const el = document.getElementById(`aud-${i}`);
+  const chk = document.getElementById(`aud-chk-${i}`);
+  if (selectedAud.has(i)) {
+    selectedAud.delete(i);
+    el.classList.remove('selected');
+    chk.textContent = '';
+  } else {
+    selectedAud.add(i);
+    el.classList.add('selected');
+    chk.textContent = '✓';
+    chk.style.color = '#fff';
+  }
+  updateAudPreview();
+}
+
+function updateAudPreview() {
+  const count = selectedAud.size;
+  if (count === 0) {
+    document.getElementById('aud-num').textContent = 'Broad';
+    document.getElementById('aud-layers-count').textContent = '0';
+    document.getElementById('aud-precision').textContent = 'Very Low';
+    document.getElementById('aud-cpm').textContent = '₹30–50';
+    document.getElementById('aud-cvr').textContent = '0.3–0.7%';
+    return;
+  }
+  const layers = [...selectedAud].map(i => AUDIENCE_LAYERS[i]);
+  const minSize = Math.min(...layers.map(l => l.size));
+  const cpmBase = 40 + layers.reduce((a,l) => a + l.cpmMod, 0);
+  const cvrBase = (0.5 + layers.reduce((a,l) => a + l.cvrMod, 0)).toFixed(1);
+  const precision = count <= 1 ? 'Low' : count <= 3 ? 'Medium' : count <= 5 ? 'High' : 'Very High';
+  document.getElementById('aud-num').textContent = formatNum(Math.max(5000, Math.round(minSize * (0.4 + 0.1 * count))));
+  document.getElementById('aud-layers-count').textContent = count;
+  document.getElementById('aud-precision').textContent = precision;
+  document.getElementById('aud-cpm').textContent = `₹${cpmBase}–${cpmBase+30}`;
+  document.getElementById('aud-cvr').textContent = `${Math.min(cvrBase, 15)}–${Math.min(parseFloat(cvrBase)+2, 18)}%`;
+}
+
+// ═══ METRICS CALCULATOR ══════════════════════════════
+
+function fmt(n) { return '₹' + Math.round(n).toLocaleString('en-IN'); }
+function fmtX(n) { return n.toFixed(2) + 'x'; }
+function formatNum(n) {
+  if (n >= 10000000) return (n/10000000).toFixed(1) + ' Cr';
+  if (n >= 100000) return (n/100000).toFixed(1) + ' L';
+  if (n >= 1000) return (n/1000).toFixed(1) + 'K';
+  return n.toString();
+}
+
+function calcMetrics() {
+  const spend = parseFloat(document.getElementById('spend').value);
+  const impressions = parseFloat(document.getElementById('impressions').value);
+  const ctr = parseFloat(document.getElementById('ctr').value) / 100;
+  const cvr = parseFloat(document.getElementById('cvr').value) / 100;
+  const aov = parseFloat(document.getElementById('aov').value);
+  const ltv = parseFloat(document.getElementById('ltv').value);
+
+  document.getElementById('spend-val').textContent = fmt(spend);
+  document.getElementById('imp-val').textContent = Math.round(impressions).toLocaleString('en-IN');
+  document.getElementById('ctr-val').textContent = (ctr*100).toFixed(1) + '%';
+  document.getElementById('cvr-val').textContent = (cvr*100).toFixed(1) + '%';
+  document.getElementById('aov-val').textContent = fmt(aov);
+  document.getElementById('ltv-val').textContent = fmt(ltv);
+
+  const clicks = impressions * ctr;
+  const conversions = clicks * cvr;
+  const revenue = conversions * aov;
+  const cpm = (spend / impressions) * 1000;
+  const cpc = spend / clicks;
+  const cpa = spend / conversions;
+  const roas = revenue / spend;
+  const ltvRatio = ltv / cpa;
+
+  document.getElementById('r-cpm').textContent = fmt(cpm);
+  document.getElementById('r-cpc').textContent = fmt(cpc);
+  document.getElementById('r-cpl').textContent = fmt(cpa);
+  document.getElementById('r-conv').textContent = Math.round(conversions).toLocaleString('en-IN');
+  document.getElementById('r-rev').textContent = fmt(revenue);
+
+  const roasEl = document.getElementById('r-roas');
+  roasEl.textContent = fmtX(roas);
+  roasEl.className = 'result-value ' + (roas >= 4 ? 'result-good' : roas >= 2 ? 'result-warn' : 'result-bad');
+  document.getElementById('r-roas-note').className = 'result-note ' + (roas >= 4 ? 'result-good' : roas >= 2 ? 'result-warn' : 'result-bad');
+  document.getElementById('r-roas-note').textContent = roas >= 4 ? '✅ Healthy ROAS — scale with confidence' : roas >= 2 ? '⚠️ Marginal — optimise before scaling' : '❌ Below breakeven — pause and diagnose';
+
+  const ltvEl = document.getElementById('r-ltv');
+  ltvEl.textContent = ltvRatio.toFixed(1) + ':1';
+  ltvEl.className = 'result-value ' + (ltvRatio >= 3 ? 'result-good' : ltvRatio >= 2 ? 'result-warn' : 'result-bad');
+  document.getElementById('r-ltv-note').textContent = ltvRatio >= 3 ? '✅ Healthy LTV:CAC — sustainable growth' : ltvRatio >= 1.5 ? '⚠️ Tight — improve retention to grow LTV' : '❌ Unsustainable — revisit pricing or CAC';
+}
+
+// ═══ A/B TEST CALCULATOR ═════════════════════════════
+
+function calcAB() {
+  const aImp = parseFloat(document.getElementById('a-imp').value) || 1;
+  const aClicks = parseFloat(document.getElementById('a-clicks').value) || 0;
+  const bImp = parseFloat(document.getElementById('b-imp').value) || 1;
+  const bClicks = parseFloat(document.getElementById('b-clicks').value) || 0;
+
+  const aRate = aClicks / aImp;
+  const bRate = bClicks / bImp;
+
+  document.getElementById('ab-a-rate').textContent = (aRate * 100).toFixed(2) + '%';
+  document.getElementById('ab-b-rate').textContent = (bRate * 100).toFixed(2) + '%';
+
+  const uplift = aRate > 0 ? ((bRate - aRate) / aRate * 100).toFixed(1) : 0;
+  document.getElementById('ab-uplift').textContent = (uplift > 0 ? '+' : '') + uplift + '%';
+  document.getElementById('ab-uplift').style.color = uplift > 0 ? 'var(--green)' : 'var(--red)';
+
+  // Chi-squared significance approximation
+  const total = aImp + bImp;
+  const pooledRate = (aClicks + bClicks) / total;
+  const se = Math.sqrt(pooledRate * (1 - pooledRate) * (1/aImp + 1/bImp));
+  const z = se > 0 ? Math.abs(bRate - aRate) / se : 0;
+  // Approximate confidence from z-score
+  const conf = Math.min(99.9, (1 - 2 * (1 - normalCDF(z))) * 100);
+
+  document.getElementById('sig-bar').style.width = Math.min(conf, 100) + '%';
+  document.getElementById('sig-bar').style.background = conf >= 95 ? 'var(--green)' : conf >= 80 ? 'var(--accent4)' : 'var(--muted)';
+  document.getElementById('sig-label').textContent = `Statistical Confidence: ${conf.toFixed(1)}% — ${conf >= 95 ? 'Significant result!' : 'Keep testing (need 95%+)'}`;
+
+  const minSample = Math.ceil(16 * pooledRate * (1 - pooledRate) / Math.pow(bRate - aRate + 0.0001, 2));
+  document.getElementById('ab-sample').textContent = isFinite(minSample) && minSample < 10000000 ? minSample.toLocaleString() : '10,000+';
+
+  const verdict = conf >= 95 ? (bRate > aRate ? '✅ B Wins' : '❌ A Wins') : '⚠️ Wait';
+  document.getElementById('ab-verdict').textContent = verdict;
+  document.getElementById('ab-verdict').style.color = conf >= 95 ? (bRate > aRate ? 'var(--green)' : 'var(--red)') : 'var(--accent4)';
+  document.getElementById('ab-result-text').textContent = conf >= 95
+    ? `Variant ${bRate > aRate ? 'B' : 'A'} wins with ${conf.toFixed(1)}% confidence. Relative uplift: ${Math.abs(uplift)}%.`
+    : `Not enough data yet. Confidence at ${conf.toFixed(1)}%. Don't make decisions below 95%.`;
+}
+
+function normalCDF(z) {
+  return 0.5 * (1 + erf(z / Math.sqrt(2)));
+}
+function erf(x) {
+  const t = 1 / (1 + 0.3275911 * Math.abs(x));
+  const y = 1 - (((((1.061405429 * t - 1.453152027) * t) + 1.421413741) * t - 0.284496736) * t + 0.254829592) * t * Math.exp(-x * x);
+  return x >= 0 ? y : -y;
+}
+
+// ═══ ROAS CALCULATOR ══════════════════════════════════
+
+function calcROAS(v) {
+  if (v === 'a') {
+    const spend = parseFloat(document.getElementById('ra-spend').value) || 0;
+    const rev = parseFloat(document.getElementById('ra-rev').value) || 0;
+    const margin = parseFloat(document.getElementById('ra-margin').value) / 100 || 0;
+    const fixed = parseFloat(document.getElementById('ra-fixed').value) || 0;
+
+    const roas = rev / spend;
+    const grossProfit = rev * margin;
+    const netProfit = grossProfit - spend - fixed;
+    const beROAS = 1 / margin;
+
+    const el = (id, val, cls) => {
+      document.getElementById(id).textContent = val;
+      document.getElementById(id).className = 'ro-val ' + cls;
+    };
+    el('ra-roas', fmtX(roas), roas >= beROAS ? 'good' : 'bad');
+    el('ra-gp', fmt(grossProfit), grossProfit > spend ? 'good' : 'bad');
+    el('ra-np', fmt(netProfit), netProfit > 0 ? 'good' : 'bad');
+    el('ra-be', fmtX(beROAS) + ' (breakeven)', roas >= beROAS ? 'good' : 'warn');
+  } else {
+    const spend = parseFloat(document.getElementById('rb-spend').value) || 0;
+    const leads = parseFloat(document.getElementById('rb-leads').value) || 0;
+    const close = parseFloat(document.getElementById('rb-close').value) / 100 || 0;
+    const val = parseFloat(document.getElementById('rb-val').value) || 0;
+
+    const cpl = leads > 0 ? spend / leads : 0;
+    const sales = leads * close;
+    const rev = sales * val;
+    const cac = sales > 0 ? spend / sales : 0;
+
+    const el = (id, v, cls) => {
+      document.getElementById(id).textContent = v;
+      document.getElementById(id).className = 'ro-val ' + cls;
+    };
+    el('rb-cpl', fmt(cpl), cpl < val * close * 0.5 ? 'good' : 'warn');
+    el('rb-sales', Math.round(sales).toString(), sales > 0 ? 'good' : 'bad');
+    el('rb-rev', fmt(rev), rev > spend ? 'good' : 'bad');
+    el('rb-cac', fmt(cac), cac < val * 0.4 ? 'good' : cac < val ? 'warn' : 'bad');
+  }
+}
+
+// ═══ GLOSSARY ═════════════════════════════════════════
+
+function renderGlossary() {
+  document.getElementById('glossary-grid').innerHTML = GLOSSARY_TERMS
+    .sort((a,b) => a.term.localeCompare(b.term))
+    .map(t => `
+      <div class="gloss-item" data-term="${t.term.toLowerCase()}">
+        <dt>${t.term}</dt>
+        <dd>${t.def}</dd>
+      </div>
+    `).join('');
+}
+
+function filterGloss() {
+  const q = document.getElementById('gloss-search').value.toLowerCase();
+  document.querySelectorAll('.gloss-item').forEach(el => {
+    const match = el.dataset.term.includes(q) || el.querySelector('dd').textContent.toLowerCase().includes(q);
+    el.classList.toggle('hidden', !match);
+  });
+}
+
+// ═══ SCROLL REVEAL ════════════════════════════════════
+
+function initReveal() {
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        obs.unobserve(e.target);
       }
-    }
-
-    document.querySelector('.mask').addEventListener('click', function () {
-      this.classList.add('hidden');
     });
+  }, { threshold: 0.05 });
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+}
 
-    drawGrid();
-  </script>
+// ═══ INIT ══════════════════════════════════════════════
+
+document.addEventListener('DOMContentLoaded', () => {
+  renderFunnel();
+  renderAttrib();
+  renderAudLayers();
+  renderGlossary();
+  calcMetrics();
+  calcAB();
+  calcROAS('a');
+  calcROAS('b');
+  initReveal();
+  // Click first funnel stage by default
+  setTimeout(() => showFunnelDetail(0), 300);
+});
+</script>
 </body>
 </html>
